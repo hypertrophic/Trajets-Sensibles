@@ -5,6 +5,21 @@
 
 ---
 
+## Sommaire
+
+- [Le projet](#le-projet)
+- [Le contexte de l'atelier](#le-contexte-de-latelier)
+- [Le parcours](#le-parcours)
+- [Le protocole](#le-protocole)
+- [Comment lire la carte](#comment-lire-la-carte)
+- [Ce que la carte montre — et ce qu'elle ne montre pas](#ce-que-la-carte-montre--et-ce-quelle-ne-montre-pas)
+- [Références et ancrages théoriques](#références-et-ancrages-théoriques)
+- [Organisation des fichiers](#organisation-des-fichiers)
+- [Crédits](#crédits)
+- [Copyright](#copyright)
+
+---
+
 ## Le projet
 
 **TrajetsSensibles** est un site de cartographie sensible collective réalisé dans le cadre
@@ -14,14 +29,30 @@ selon un protocole commun : partir d'un point de départ partagé, rejoindre lib
 d'arrivée partagé, et photographier en chemin *ce qui les fait s'arrêter et regarder
 autrement*.
 
-La question qui traverse le projet :
+La question qui traverse l'ensemble du projet :
 
 > **Comment un même espace géographique peut-il être vécu et perçu différemment d'une personne à une autre ?**
 
-Chaque jour, les mêmes rues sont traversées de manière presque automatique. Pourtant, la
-perception d'un lieu dépend des habitudes, de l'humeur, des souvenirs et de l'attention portée
-à ce qui nous entoure. Un même endroit peut ainsi provoquer des sensations très différentes
-selon les personnes qui le traversent.
+Chaque jour, les mêmes rues et les mêmes quartiers sont traversés de manière presque
+automatique. Pourtant, la perception d'un lieu dépend des habitudes, de l'humeur, des souvenirs
+et de l'attention portée à ce qui nous entoure. Un même endroit peut ainsi provoquer des
+sensations très différentes selon les personnes qui le traversent.
+
+L'objectif n'est pas de produire une carte utilitaire ou touristique de Metz, mais une
+**représentation collective et subjective du territoire** : une coexistence de regards, de
+sensations et de souvenirs associés à des lieux parfois identiques, parfois complètement
+différents.
+
+## Le contexte de l'atelier
+
+Le projet s'inscrit dans le cadre d'un **atelier de cartographie sensible collective** proposé
+par **Chaimae SEBTI**, étudiante en **M1 Arts Plastiques**. Il prend la forme d'une expérience
+participative à la croisée de la marche, de la photographie et de la cartographie numérique.
+
+Le dispositif est volontairement simple : il ne s'agit pas de rechercher les « plus belles »
+images ni les lieux emblématiques de la ville, mais de porter attention aux **détails
+ordinaires** qui passent habituellement inaperçus. Les photographies deviennent alors les
+traces d'une expérience vécue et des supports de mémoire.
 
 ## Le parcours
 
@@ -40,57 +71,88 @@ elles dessinent le chemin vécu de chaque participant.
 1. **Partir ensemble du point A** — La République, 60 Rue de la Chapelle.
 2. **Rejoindre le point B** — la Cathédrale Saint-Étienne, en choisissant librement son chemin.
 3. **Photographier librement pendant le trajet**, avec une seule consigne : photographier ce
-   qui fait s'arrêter et regarder autrement — une couleur, une ombre, une fissure, une
+   qui fait **s'arrêter et regarder autrement** — une couleur, une ombre, une fissure, une
    présence, un sentiment de malaise, un objet abandonné, un détail qui rappelle un souvenir.
-   Non les plus belles images, mais les détails ordinaires qui passent inaperçus.
 4. **À l'arrivée**, partager **un mot, un souvenir ou une impression** de l'ensemble du trajet.
 
 Les photographies ne portent **ni titre ni description** : elles sont simplement numérotées
-dans l'ordre du trajet et regroupées sous le nom de leur auteur.
+dans l'ordre du trajet (« Photographie 1 », « Photographie 2 »…) et regroupées sous le nom de
+leur auteur. Le seul texte libre est le **mot du trajet**, partagé à l'arrivée.
 
-## Le site
+## Comment lire la carte
 
-- Une carte de Metz centrée sur le parcours, avec les **points A et B fixes**.
-- Les **tracés de chaque participant**, qui suivent réellement les rues (réseau piéton
-  OpenStreetMap) — un tracé direct « à vol d'oiseau » reste consultable pour comparaison.
-- Une **liste des participants** : un clic met en évidence son chemin et ses photographies.
-- Une **galerie « Les regards du trajet »**, groupée par participant : chaque carte se déplie
-  pour révéler les photographies du trajet, leur position et leur date.
-- Un **fond de carte épuré** par défaut, un plan avec noms de rues en option, et une carte
-  schématique de secours si la page est ouverte sans connexion.
+- **Cliquer sur un participant** dans la liste à droite de la carte : son chemin et ses
+  photographies ressortent, les autres s'estompent. Re-cliquer — ou *Voir tous les trajets* —
+  pour tout réafficher. Sur téléphone, les mêmes filtres sont accessibles dans une barre de
+  pastilles placée sous la carte.
+- **Cliquer sur une vignette photo** : l'image en grand, son numéro, ses coordonnées et sa date.
+- **Fond de carte** (en haut à droite de la carte) : *Carte épurée* par défaut — un fond sombre
+  et minimal, dans l'esprit de la cartographie sensible, où seuls les chemins vécus et les
+  photographies comptent — ou *Noms de rues*, le plan IGN complet, pratique pour se repérer.
+- **Tracé des chemins** : *Rues* suit l'itinéraire piéton réel entre les points de passage ;
+  *Direct* relie simplement les points à vol d'oiseau, pour comparer.
+- **Cliquer n'importe où sur la carte** affiche sous celle-ci les coordonnées du point cliqué.
+- La **galerie « Les regards du trajet »**, sous la carte, est groupée par participant : chaque
+  carte se déplie pour révéler les photographies du trajet, et le bouton *Voir sur la carte*
+  recentre la carte sur l'une d'elles.
+- Des **compteurs** (participants en chemin, photographies géolocalisées, distance A → B)
+  reflètent les contributions reçues.
 
-Le site est entièrement **statique** (aucun serveur, aucune base de données, aucun compte) :
-`index.html`, `donnees.js` et le dossier `assets/` suffisent.
+## Ce que la carte montre — et ce qu'elle ne montre pas
+
+- Le tracé affiché **relie les photographies dans l'ordre du trajet**, en suivant le réseau
+  piéton réel entre les points déclarés. Il ne prétend pas reconstituer un enregistrement GPS :
+  c'est l'itinéraire le plus court entre les points de passage, non le chemin exactement
+  emprunté — d'où la possibilité de revenir au mode *Direct*, plus brut mais plus fidèle à la
+  seule position des images.
+- Les coordonnées de chaque photographie sont **relevées manuellement** par les participants.
+- La carte conserve la géographie réelle de Metz, mais privilégie une présentation **épurée** :
+  ce qui y ressort, ce sont avant tout les chemins réellement parcourus et les photographies
+  prises en route. Certains itinéraires se croisent, d'autres divergent ; un même lieu peut être
+  photographié par plusieurs participants sous des angles différents.
+- En réunissant ces contributions, la carte devient un **assemblage de souvenirs et de
+  perceptions singulières** — une forme de mémoire collective construite à partir d'expériences
+  individuelles, sans chercher à les uniformiser.
+- **Perspective** : dans une version ultérieure, le dispositif pourrait être alimenté **en temps
+  réel** par les participants depuis leurs téléphones, avec envoi direct des photographies
+  géolocalisées. Cela nécessiterait l'ajout d'un service en ligne (base de données et stockage
+  d'images), que la structure actuelle permettrait d'intégrer sans remettre en cause la
+  présentation du site.
+
+## Références et ancrages théoriques
+
+- **Georges Perec**, *Tentative d'épuisement d'un lieu parisien* (1975) et sa notion
+  d'**« infra-ordinaire »** : ces petits éléments du quotidien que l'on ne remarque plus à force
+  de les traverser. Le protocole de l'atelier en est directement l'héritier — regarder ce qui,
+  d'ordinaire, ne mérite pas qu'on s'y arrête.
+- **Élise Olmedo**, *Cartographie sensible. Tracer une géographie du vécu par la
+  recherche-création* (2015) : d'autres manières de représenter l'espace à partir des
+  expériences vécues et des perceptions individuelles, plutôt que des seules données objectives.
+- **Urban Belonging** (Copenhague, Danemark, 2022) : projet de recherche participative où des
+  habitants documentent leur rapport à la ville par la photographie, le commentaire et le
+  parcours géolocalisé, afin de faire apparaître des expériences peu représentées dans les
+  décisions d'aménagement urbain.
 
 ## Organisation des fichiers
 
 ```
 .
-├── index.html                        ← la page du site (HTML + CSS + script de rendu)
-├── donnees.js                        ← participants et photographies (le seul fichier à remplir)
-├── donnees-vide.js                   ← la même structure, vide (réserve)
-├── MODE-D-EMPLOI.md                  ← guide de remplissage pas à pas
-├── RESUME-ET-CONTEXTE-DU-PROJET.md   ← présentation et contexte détaillés du projet
+├── index.html              ← la page du site (HTML + CSS + script de rendu)
+├── donnees.js              ← les participants et leurs photographies
+├── donnees-vide.js         ← la même structure, vide (réserve pour repartir de zéro)
 └── assets/
-    ├── LISEZ-MOI.txt                 ← consignes pour les photographies
-    └── participant-1/ … participant-5/  ← les photographies de chaque participant
+    ├── LISEZ-MOI.txt       ← consignes pour les photographies
+    └── participant-1/ … participant-5/   ← les photographies de chaque participant
 ```
 
-Le dépôt contient actuellement des **données de démonstration** (participants fictifs et
-images neutres portant un bandeau « IMAGE DE DÉMONSTRATION ») afin que la carte, les tracés et
-la galerie soient visibles immédiatement. Les consignes de remplacement figurent dans
-`MODE-D-EMPLOI.md` et `assets/LISEZ-MOI.txt`.
+Le site est **entièrement statique** : aucun serveur, aucune base de données, aucun compte.
+Il suffit d'ouvrir la page, ou de la consulter en ligne. Les fichiers doivent rester ensemble :
+`index.html`, `donnees.js` et le dossier `assets/`.
 
-## Références
-
-- **Georges Perec**, *Tentative d'épuisement d'un lieu parisien* (1975) et sa notion
-  d'**« infra-ordinaire »** : ces petits éléments du quotidien que l'on ne remarque plus à
-  force de les traverser.
-- **Élise Olmedo**, *Cartographie sensible. Tracer une géographie du vécu par la
-  recherche-création* (2015).
-- **Urban Belonging** (Copenhague, Danemark, 2022), projet de recherche participative où des
-  habitants documentent leur rapport à la ville par la photographie, le commentaire et le
-  parcours géolocalisé.
+Le dépôt contient actuellement des **données de démonstration** — participants fictifs et
+images neutres portant un bandeau « IMAGE DE DÉMONSTRATION » — afin que la carte, les tracés et
+la galerie soient visibles immédiatement. Les consignes de remplacement des photographies
+figurent dans `assets/LISEZ-MOI.txt` et en tête de `donnees.js`.
 
 ## Crédits
 
@@ -113,4 +175,4 @@ propriété de leurs auteurs et détenteurs respectifs, aux conditions indiquée
 
 ---
 
-<sub>Site web : [hypertrophic](https://github.com/hypertrophic)</sub>
+<sub>Fichiers et code source : [github.com/hypertrophic/Trajets-Sensibles](https://github.com/hypertrophic/Trajets-Sensibles) · site web : [hypertrophic](https://github.com/hypertrophic)</sub>

@@ -14,7 +14,7 @@ Ensuite, déclarez chaque photographie dans le fichier « donnees.js »
 (chemin du fichier + coordonnées géolocalisées lat/lng, et éventuellement
 une date). Les photographies n'ont ni titre ni description : le site les
 numérote dans l'ordre du trajet et les regroupe sous le nom du participant.
-Tout est expliqué en haut de donnees.js et dans le MODE-D-EMPLOI.
+Tout est expliqué en haut du fichier donnees.js.
 
 --------------------------------------------------------------
 ⚠️ CE QUI EST DÉJÀ DANS CE DOSSIER : DES IMAGES DE DÉMONSTRATION
