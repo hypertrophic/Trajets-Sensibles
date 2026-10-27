@@ -14,7 +14,7 @@
 - [Comment lire la carte](#comment-lire-la-carte)
 - [Ce que la carte montre — et ce qu'elle ne montre pas](#ce-que-la-carte-montre--et-ce-quelle-ne-montre-pas)
 - [Références et ancrages théoriques](#références-et-ancrages-théoriques)
-- [Organisation des fichiers](#organisation-des-fichiers)
+- [Le site et ses fichiers](#le-site-et-ses-fichiers)
 - [Crédits](#crédits)
 - [Copyright](#copyright)
 
@@ -136,26 +136,28 @@ date. Ce sont les images et les chemins qui parlent.
   parcours géolocalisé, afin de faire apparaître des expériences peu représentées dans les
   décisions d'aménagement urbain.
 
-## Organisation des fichiers
+## Le site et ses fichiers
+
+Le site est **entièrement statique** : une page, un fichier de données et un dossier
+d'images. Il n'y a ni serveur, ni base de données, ni compte à créer, et aucune donnée n'est
+collectée sur les visiteurs.
 
 ```
-.
-├── index.html              ← la page du site (HTML + CSS + script de rendu)
-├── donnees.js              ← les participants et leurs photographies
-├── donnees-vide.js         ← la même structure, vide (réserve pour repartir de zéro)
+Trajets-Sensibles/
+├── index.html      ← la page : la carte, la galerie et la mise en page
+├── donnees.js      ← les participants, leurs parcours et leurs photographies
+├── README.md       ← ce document
 └── assets/
-    ├── LISEZ-MOI.txt       ← consignes pour les photographies
     └── participant-1/ … participant-5/   ← les photographies de chaque participant
 ```
 
-Le site est **entièrement statique** : aucun serveur, aucune base de données, aucun compte.
-Il suffit d'ouvrir la page, ou de la consulter en ligne. Les fichiers doivent rester ensemble :
-`index.html`, `donnees.js` et le dossier `assets/`.
+Tout le contenu éditorial — les noms, l'ordre des photographies, leurs coordonnées et leurs
+dates — tient dans `donnees.js`, en clair. Le dossier `assets/` contient les images, rangées
+par participant : chaque participant rassemble les photographies de son propre trajet.
 
-Le dépôt contient actuellement des **données de démonstration** — participants fictifs et
-images neutres portant un bandeau « IMAGE DE DÉMONSTRATION » — afin que la carte, les tracés et
-la galerie soient visibles immédiatement. Les consignes de remplacement des photographies
-figurent dans `assets/LISEZ-MOI.txt` et en tête de `donnees.js`.
+Les photographies actuellement en ligne sont des **visuels de démonstration** portant un
+bandeau « IMAGE DE DÉMONSTRATION » : ils ne représentent aucune prise de vue réelle et ne
+montrent aucun lieu de la ville. Ils seront remplacés par les images de l'atelier.
 
 ## Crédits
 

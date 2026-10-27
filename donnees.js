@@ -1,62 +1,28 @@
 /* ════════════════════════════════════════════════════════════════════════
-   TrajetsSensibles — DONNÉES DE L'ATELIER
+   TrajetsSensibles — DONNÉES DES PARCOURS
    ════════════════════════════════════════════════════════════════════════
-   C'EST LE SEUL FICHIER À REMPLIR.
+   Chaque participant réunit les photographies de son trajet, dans l'ordre
+   où elles ont été prises : le site relie A → photo 1 → … → B dans cet ordre.
+
+     nom       nom (ou pseudonyme) affiché sur la carte et dans la galerie
+     couleur   couleur de son trajet
+     photos    liste ordonnée des photographies du parcours
+
+   Pour chaque photographie :
+
+     fichier   chemin de l'image, relative au dossier du site
+     lat/lng   coordonnées de la prise de vue (point décimal, pas de virgule)
+     date      texte libre, facultatif
+
+   Les photographies n'ont ni titre ni description : elles sont numérotées
+   dans l'ordre du trajet et regroupées sous le nom de leur auteur.
 
    ┌──────────────────────────────────────────────────────────────────────┐
-   │  ⚠️  DONNÉES DE DÉMONSTRATION (FICTIVES)                             │
-   │                                                                      │
-   │  Ce fichier est livré avec 5 participants d'exemple et 18 photos     │
-   │  fictives, uniquement pour que la carte, les chemins, la galerie et  │
-   │  les fiches photo soient visibles et testables tout de suite.        │
-   │                                                                      │
-   │  - Les noms sont encore « Participant 1 » … « Participant 5 ».       │
-   │  - Les coordonnées lat/lng sont des estimations placées entre A et   │
-   │    B : elles ne correspondent pas à de vraies prises de vue.         │
-   │  - Les images du dossier assets/ sont des visuels neutres générés    │
-   │    localement (voir assets/LISEZ-MOI.txt), pas des photographies.    │
-   │                                                                      │
-   │  POUR PARTIR D'UNE PAGE BLANCHE : remplacez ce fichier par           │
-   │  « donnees-vide.js » (livré à côté), puis videz les dossiers de      │
-   │  assets/ (en gardant les dossiers participant-1 … participant-5).    │
+   │  CONTENU ACTUEL : DONNÉES DE DÉMONSTRATION                           │
+   │  Les 18 images de assets/ sont des visuels neutres générés pour le    │
+   │  site (bandeau « IMAGE DE DÉMONSTRATION ») et les coordonnées sont    │
+   │  des positions d'exemple le long du parcours réel.                   │
    └──────────────────────────────────────────────────────────────────────┘
-
-   1) LES PARTICIPANTS
-      Remplacez les noms par les prénoms (ou pseudonymes) réels des
-      participants et, si vous le souhaitez, leur couleur de trajet.
-      Le site n'affiche aucun commentaire : ni titre, ni description, ni
-      mot d'arrivée — seulement le nom, le nombre de photographies et la
-      date de chaque image.
-
-   2) LES PHOTOGRAPHIES (assets)
-      a. Copiez le fichier image dans le dossier du participant, par ex. :
-             assets/participant-1/fissure.jpg
-         (évitez les espaces et les accents dans les noms de fichiers ;
-          formats conseillés : .jpg, .png ou .webp — pas de .heic)
-         ⚠️ Pour les DÉMONSTRATIONS, les images déjà présentes portent
-         exactement les noms ci-dessous : le plus simple est de les
-         remplacer une à une par vos photos portant le même nom.
-      b. Ajoutez une ligne dans la liste « photos: [ ... ] » du participant,
-         sur le modèle ci-dessous. L'ORDRE des lignes = l'ordre du trajet :
-         le site relie A → photo 1 → photo 2 → … → B dans cet ordre.
-      c. lat / lng = les coordonnées géolocalisées de la prise de vue
-         (nombres avec un POINT, pas une virgule : 49.110250 et 6.174750).
-         Pour les trouver : ouvrez le site, cliquez sur la carte à l'endroit
-         de la photo — les coordonnées s'affichent sous la carte, il suffit
-         de les recopier ici. (Ou clic droit dans Google Maps.)
-      d. Les photographies n'ont NI titre NI description. Elles sont
-         simplement numérotées dans l'ordre du trajet (« Photographie 1 »,
-         « Photographie 2 »…) et regroupées sous le nom de leur participant
-         dans la galerie du site. Seul « date » reste possible (texte libre,
-         ex. "12 mai 2026") — il peut être omis.
-
-   EXEMPLE D'UNE LIGNE PHOTO COMPLÈTE (à copier-coller puis adapter) :
-
-      { fichier: "assets/participant-1/fissure.jpg", lat: 49.115250, lng: 6.174750, date: "12 mai 2026" },
-
-   ⚠️ N'oubliez pas la VIRGULE à la fin de chaque ligne (sauf, si vous
-      préférez, la toute dernière), et gardez les guillemets autour des
-      textes et des chemins de fichiers.
    ════════════════════════════════════════════════════════════════════════ */
 
 window.DONNEES_ATELIER = {
