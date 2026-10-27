@@ -29,13 +29,14 @@
          Pour les trouver : ouvrez le site, cliquez sur la carte à l'endroit
          de la photo — les coordonnées s'affichent sous la carte, il suffit
          de les recopier ici. (Ou clic droit dans Google Maps.)
-      d. « mot » (un mot / une sensation), « legende » (souvenir, impression)
-         et « date » sont facultatifs : ils peuvent rester vides "" ou être
-         supprimés de la ligne.
+      d. Les photographies n'ont NI titre NI description : elles sont
+         numérotées dans l'ordre du trajet (« Photographie 1 », …) et
+         regroupées sous le nom du participant dans la galerie du site.
+         Seul « date » reste possible (texte libre), ou omis.
 
    EXEMPLE D'UNE LIGNE PHOTO COMPLÈTE (à copier-coller puis adapter) :
 
-      { fichier: "assets/participant-1/fissure.jpg", lat: 49.110250, lng: 6.174750, mot: "fissure", legende: "La fissure traversait le trottoir comme un éclair lent.", date: "12 mai 2026" },
+      { fichier: "assets/participant-1/fissure.jpg", lat: 49.110250, lng: 6.174750, date: "12 mai 2026" },
 
    ⚠️ N'oubliez pas la VIRGULE à la fin de chaque ligne (sauf, si vous
       préférez, la toute dernière), et gardez les guillemets autour des
@@ -51,8 +52,8 @@ window.DONNEES_ATELIER = {
       motDuTrajet: "",
       photos: [
         // ← Ajoutez ici les photographies du Participant 1, par exemple :
-        // { fichier: "assets/participant-1/photo1.jpg", lat: 49.105800, lng: 6.172200, mot: "ombre", legende: "", date: "" },
-        // { fichier: "assets/participant-1/photo2.jpg", lat: 49.113500, lng: 6.169500, mot: "reflet", legende: "", date: "" },
+        // { fichier: "assets/participant-1/photo1.jpg", lat: 49.105800, lng: 6.172200, date: "" },
+        // { fichier: "assets/participant-1/photo2.jpg", lat: 49.113500, lng: 6.169500, date: "" },
       ]
     },
 

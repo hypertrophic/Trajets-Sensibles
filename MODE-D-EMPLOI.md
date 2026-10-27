@@ -57,16 +57,21 @@ Pour chaque photographie :
 2. **Ajoutez une ligne** dans la liste `photos: [ … ]` du participant, dans `donnees.js` :
 
 ```js
-{ fichier: "assets/participant-1/fissure.jpg", lat: 49.110250, lng: 6.174750, mot: "fissure", legende: "La fissure traversait le trottoir comme un éclair lent.", date: "12 mai 2026" },
+{ fichier: "assets/participant-1/fissure.jpg", lat: 49.110250, lng: 6.174750, date: "12 mai 2026" },
 ```
 
 | Champ | Signification |
 |---|---|
 | `fichier` | Le chemin de la photo, exactement comme dans le dossier `assets/` |
 | `lat` / `lng` | Les **coordonnées géolocalisées** de la prise de vue (avec un **point**, pas une virgule) |
-| `mot` | Un mot, une sensation (facultatif) |
-| `legende` | Un souvenir, une impression (facultatif) |
-| `date` | Texte libre, ex. `"12 mai 2026"` (facultatif) |
+| `date` | Texte libre, ex. `"12 mai 2026"` (facultatif, peut être omis) |
+
+ℹ️ **Les photographies n'ont ni titre ni description.** Le site les nomme
+automatiquement d'après leur rang dans le trajet — « Photographie 1 »,
+« Photographie 2 »… — et les regroupe sous le nom de leur participant.
+Le seul texte libre du site est le **mot du trajet** (`motDuTrajet`), partagé
+à l'arrivée. Les anciens champs `mot` et `legende` sont désormais ignorés :
+inutile de les écrire.
 
 ➡️ **L'ordre des lignes compte** : le site dessine le chemin de chaque participant dans cet ordre — A → 1ʳᵉ photo → 2ᵉ photo → … → B. Classez donc les photos dans l'ordre où elles ont été prises pendant le trajet.
 
@@ -95,11 +100,11 @@ Enregistrez `donnees.js`, rechargez la page : c'est en ligne. ✅
 ## 3. Lire la carte commune
 
 - **Cliquer sur un participant** (liste à droite de la carte) : son chemin et ses photos ressortent, les autres s'estompent. Re-cliquer (ou *Voir tous les trajets*) pour tout réafficher.
-- **Cliquer sur une vignette photo** : image en grand, mot, légende, coordonnées.
+- **Cliquer sur une vignette photo** : image en grand, numéro de la photographie, coordonnées et date.
 - **Fond de carte** (en haut à droite de la carte) :
   - *Carte épurée* (par défaut) : fond sombre et minimal, dans l'esprit de la cartographie sensible — seuls les chemins vécus et les photos comptent ;
   - *Noms de rues* : plan IGN complet, pratique pour se repérer et relever les coordonnées des prises de vue.
-- La **galerie « Les regards du trajet »** (sous la carte) rassemble toutes les images ; *Voir sur la carte* recentre la carte sur chacune.
+- La **galerie « Les regards du trajet »** (sous la carte) est **groupée par participant** : une carte par personne (nom, nombre de photographies, mot du trajet, trois vignettes d'aperçu). Un clic déplie ses photographies, numérotées dans l'ordre du trajet, avec leur position et leur date ; *Voir sur la carte* recentre la carte sur l'une d'elles.
 - **Tracé des chemins** (deuxième bouton en haut à droite de la carte) : *Rues* — l'itinéraire piéton réel, qui tourne aux angles et suit les voies — ou *Direct* — les points reliés à vol d'oiseau. Le choix *Rues* est celui par défaut.
 
 ## 4. Mettre le site en ligne (facultatif)

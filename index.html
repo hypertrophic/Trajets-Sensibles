@@ -149,13 +149,36 @@
     .section-intro { text-align: center; margin-bottom: 50px; }
     .section-intro h2 { font-size: clamp(2rem,3vw,2.55rem); letter-spacing: -.035em; margin: 0 0 12px; }
     .section-intro p { margin: 0 auto; max-width: 720px; color: #777784; font-size: 1.02rem; line-height: 1.65; }
+    /* Galerie groupée par participant */
+    .gallery-groups { display: flex; flex-direction: column; gap: 14px; }
+    .gallery-total { display: block; margin-top: 14px; color: #6d6d78; font-size: .78rem; letter-spacing: .02em; }
+    .p-group { border: 1px solid var(--line); border-radius: 18px; background: #08080c; overflow: hidden; transition: border-color .2s, background .2s; }
+    .p-group.is-open { background: #0a0a11; border-color: rgba(255,255,255,.16); }
+    .p-group.is-focused { border-color: color-mix(in srgb, var(--pc) 55%, transparent); }
+    .p-group-head { width: 100%; display: flex; align-items: center; gap: 15px; padding: 16px 20px; background: transparent; border: 0; color: inherit; text-align: left; }
+    .p-group-head:hover { background: rgba(255,255,255,.03); }
+    .p-group-titles { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+    .p-group-name { color: #f0f0f4; font: 600 1rem "Space Grotesk", sans-serif; }
+    .p-group-sub { color: #7e7e89; font-size: .78rem; }
+    .p-group-word { color: #c3b6f5; font-size: .78rem; font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .p-group-thumbs { display: flex; gap: 6px; flex: none; }
+    .p-group-thumb { width: 34px; height: 34px; border-radius: 9px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,.14); }
+    .p-group-chevron { flex: none; color: #8b8b96; font-size: 1.1rem; line-height: 1; transition: transform .25s; }
+    .p-group.is-open .p-group-chevron { transform: rotate(180deg); }
+    .p-group-body { padding: 4px 20px 20px; border-top: 1px solid var(--line); }
+    .p-group-empty { color: #7e7e89; font-size: .84rem; margin: 16px 0 4px; }
+    .photo-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 14px; padding-top: 16px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    .photo-card-label { margin: 0; color: #efeff3; font-size: .84rem; font-weight: 600; letter-spacing: .01em; }
+    .photo-card-label strong { color: #a78bfa; font-weight: 700; }
+    .photo-card-of { color: #8b8b96; font-weight: 500; }
+    .photo-card img { cursor: zoom-in; }
     .photo-card { background: #08080c; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
     .photo-card img { width: 100%; height: 190px; object-fit: cover; display: block; }
     .photo-card-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
     .photo-card-word { font: italic 600 1rem "Space Grotesk",sans-serif; color: #fff; margin: 0; }
     .photo-card-caption { color: #9a9aa6; font-size: .84rem; line-height: 1.55; margin: 0; }
-    .photo-card-meta { color: #6d6d78; font-size: .73rem; line-height: 1.6; margin: 0; }
+    .photo-card-meta { color: #6d6d78; font-size: .73rem; line-height: 1.6; margin: 0; display: flex; flex-direction: column; gap: 1px; }
     .photo-card-author { display: inline-flex; align-items: center; gap: 7px; font-size: .78rem; font-weight: 600; color: #dddde6; }
     .photo-card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 8px; }
     .empty-state { text-align: center; padding: 55px 30px; border: 1px dashed rgba(167,139,250,.4); border-radius: 18px; color: #8b8b96; line-height: 1.7; }
@@ -276,6 +299,17 @@
       .section-intro h2 { font-size: clamp(1.6rem, 6.4vw, 2rem); }
       .section-intro p { font-size: .9rem; line-height: 1.6; }
       .gallery-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+      .gallery-groups { gap: 10px; }
+      .p-group { border-radius: 14px; }
+      .p-group-head { padding: 13px 14px; gap: 11px; }
+      .p-group-name { font-size: .92rem; }
+      .p-group-sub { font-size: .72rem; }
+      .p-group-word { font-size: .72rem; }
+      .p-group-thumbs { gap: 4px; }
+      .p-group-thumb { width: 26px; height: 26px; border-radius: 7px; }
+      .p-group-thumb:nth-child(3) { display: none; }
+      .p-group-body { padding: 2px 14px 14px; }
+      .photo-row { grid-template-columns: 1fr; gap: 12px; padding-top: 12px; }
       .photo-card { border-radius: 13px; }
       .photo-card img { height: 132px; }
       .photo-card-body { padding: 11px 12px 12px; gap: 5px; }
@@ -311,6 +345,7 @@
       .section-wrap { width: calc(100% - 22px); }
       .basemap-switch button, .route-switch button { padding: 7px 8px; font-size: .66rem; }
       .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
+      .p-group-thumbs { display: none; }
       .photo-card img { height: 158px; }
       .photo-card-caption { -webkit-line-clamp: 4; }
       .leaflet-popup-content { width: min(240px, 78vw) !important; }
@@ -431,9 +466,10 @@
     <section class="gallery-section section-wrap" id="photographies">
       <div class="section-intro">
         <h2>Les regards du trajet</h2>
-        <p>«&nbsp;Photographier ce qui fait s’arrêter et regarder autrement.&nbsp;» Toutes les photographies géolocalisées entre La République et la Cathédrale Saint-Étienne, dans l’ordre des chemins parcourus.</p>
+        <p>«&nbsp;Photographier ce qui fait s’arrêter et regarder autrement.&nbsp;» Chaque participant rassemble ici les photographies de son trajet, géolocalisées entre La République et la Cathédrale Saint-Étienne. Ouvrez une carte pour les parcourir.</p>
       </div>
-      <div class="gallery-grid" id="gallery"></div>
+      <div class="gallery-groups" id="gallery"></div>
+      <span class="gallery-total" id="galleryTotal"></span>
       <div class="empty-state" id="galleryEmpty">
         <strong>Photographies à venir</strong>
         Les emplacements sont réservés : les photographies des participants apparaîtront ici, ainsi que sur la carte commune, à l’endroit où chacune a été prise.
@@ -511,6 +547,7 @@
           if (!src || !isFinite(lat) || !isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) return null;
           return {
             id: id + "-photo-" + (j + 1),
+            rang: j + 1,
             participantId: id,
             src: String(src),
             lat: lat,
@@ -755,13 +792,18 @@
     }
     function popupPhoto(ph) {
       const author = participantById(ph.participantId);
-      return '<div class="popup-photo"><img src="' + esc(ph.src) + '" alt="Photographie de ' + esc(author ? author.name : "") + '"></div>' +
+      return '<div class="popup-photo"><img src="' + esc(ph.src) + '" alt="' + esc(libellePhoto(ph)) + '"></div>' +
         '<div class="popup-body">' +
-        '<span class="popup-author"><span class="author-dot" style="background:' + (author ? author.color : "#999") + '"></span>' + esc(author ? author.name : "Participant") + '</span>' +
-        (ph.word ? '<p class="popup-word">«&nbsp;' + esc(ph.word) + '&nbsp;»</p>' : "") +
-        (ph.caption ? '<p class="popup-caption">' + esc(ph.caption) + '</p>' : "") +
+        '<span class="popup-author"><span class="author-dot" style="background:' + (author ? author.color : "#999") + '"></span>' + esc(libellePhoto(ph)) + '</span>' +
         '<p class="popup-meta">📍 ' + formatCoords(ph.lat, ph.lng) + (ph.date ? "<br>📷 " + esc(ph.date) : "") + '</p>' +
         '</div>';
+    }
+    /* Intitulé unique d'une photographie : « Photographie 2 · Participant 1 ».
+       Les photos n'ont ni titre ni description ; seul leur rang dans le trajet
+       et leur auteur les identifient. */
+    function libellePhoto(ph) {
+      const author = participantById(ph.participantId);
+      return "Photographie " + ph.rang + " · " + (author ? author.name : "Participant");
     }
     function showClickedCoords(lat, lng) {
       const el = document.getElementById("clickedCoords");
@@ -981,56 +1023,154 @@
       document.getElementById("statPhotos").textContent = String(state.photos.length);
       document.getElementById("statDistance").textContent = haversineKm(POINT_A, POINT_B).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " km";
     }
+    /* ================= Galerie « Les regards du trajet » =================
+       Les photographies sont regroupées PAR PARTICIPANT : une carte par
+       personne, que l'on déplie pour voir ses images (position, date).
+       Aucune photo n'a de titre ni de description : elles sont seulement
+       numérotées dans l'ordre du trajet. */
+    let groupeOuvert = null; // id du participant déplié
+
+    function cartePhoto(ph) {
+      const author = participantById(ph.participantId);
+      const card = document.createElement("article");
+      card.className = "photo-card";
+
+      const img = document.createElement("img");
+      img.src = ph.src;
+      img.alt = libellePhoto(ph);
+      img.loading = "lazy";
+      img.addEventListener("click", function () { focusPhotoOnMap(ph.id); });
+
+      const body = document.createElement("div");
+      body.className = "photo-card-body";
+
+      const label = document.createElement("p");
+      label.className = "photo-card-label";
+      label.innerHTML = "Photographie <strong>" + ph.rang + "</strong>";
+
+      const meta = document.createElement("p");
+      meta.className = "photo-card-meta";
+      meta.textContent = "📍 " + formatCoords(ph.lat, ph.lng);
+      if (ph.date) {
+        const dateLigne = document.createElement("span");
+        dateLigne.className = "photo-card-date";
+        dateLigne.textContent = "📷 " + ph.date;
+        meta.append(dateLigne);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "photo-card-actions";
+      const viewBtn = document.createElement("button");
+      viewBtn.type = "button";
+      viewBtn.className = "ghost small-btn";
+      viewBtn.textContent = "🗺️ Voir sur la carte";
+      viewBtn.addEventListener("click", function () { focusPhotoOnMap(ph.id); });
+      actions.append(viewBtn);
+
+      body.append(label, meta, actions);
+      card.append(img, body);
+      return card;
+    }
+
+    function groupeParticipant(person) {
+      const ouvert = groupeOuvert === person.id;
+      const bloc = document.createElement("section");
+      bloc.className = "p-group" + (ouvert ? " is-open" : "") + (selectedParticipantId === person.id ? " is-focused" : "");
+      bloc.style.setProperty("--pc", person.color);
+
+      const entete = document.createElement("button");
+      entete.type = "button";
+      entete.className = "p-group-head";
+      entete.setAttribute("aria-expanded", String(ouvert));
+      entete.setAttribute("aria-controls", "groupe-" + person.id);
+
+      const avatar = document.createElement("span");
+      avatar.className = "avatar";
+      avatar.style.background = person.color;
+      avatar.textContent = initials(person.name);
+
+      const titres = document.createElement("span");
+      titres.className = "p-group-titles";
+      const nom = document.createElement("span");
+      nom.className = "p-group-name";
+      nom.textContent = person.name;
+      const sousTitre = document.createElement("span");
+      sousTitre.className = "p-group-sub";
+      sousTitre.textContent = person.photos.length === 0
+        ? "Aucune photographie pour l’instant"
+        : person.photos.length + (person.photos.length === 1 ? " photographie" : " photographies") +
+          (person.journeyWord ? "" : "");
+      titres.append(nom, sousTitre);
+      if (person.journeyWord) {
+        const mot = document.createElement("span");
+        mot.className = "p-group-word";
+        mot.textContent = "« " + person.journeyWord + " »";
+        titres.append(mot);
+      }
+
+      /* aperçu : les trois premières vignettes, pour deviner le contenu */
+      const apercu = document.createElement("span");
+      apercu.className = "p-group-thumbs";
+      apercu.setAttribute("aria-hidden", "true");
+      person.photos.slice(0, 3).forEach(function (ph) {
+        const vignette = document.createElement("span");
+        vignette.className = "p-group-thumb";
+        vignette.style.backgroundImage = "url('" + ph.src + "')";
+        apercu.append(vignette);
+      });
+
+      const chevron = document.createElement("span");
+      chevron.className = "p-group-chevron";
+      chevron.setAttribute("aria-hidden", "true");
+      chevron.textContent = "⌄";
+
+      entete.append(avatar, titres, apercu, chevron);
+      entete.addEventListener("click", function () {
+        groupeOuvert = ouvert ? null : person.id;
+        renderGallery();
+      });
+
+      const corps = document.createElement("div");
+      corps.className = "p-group-body";
+      corps.id = "groupe-" + person.id;
+      if (!ouvert) corps.hidden = true;
+      else {
+        if (person.photos.length === 0) {
+          const vide = document.createElement("p");
+          vide.className = "p-group-empty";
+          vide.textContent = "Les photographies de ce trajet seront ajoutées ici.";
+          corps.append(vide);
+        } else {
+          const grille = document.createElement("div");
+          grille.className = "photo-row";
+          person.photos.forEach(function (ph) { grille.append(cartePhoto(ph)); });
+          corps.append(grille);
+        }
+      }
+
+      bloc.append(entete, corps);
+      return bloc;
+    }
+
     function renderGallery() {
       const gallery = document.getElementById("gallery");
       gallery.replaceChildren();
-      const visible = state.photos.filter(function (ph) {
-        return selectedParticipantId === null || ph.participantId === selectedParticipantId;
+      const avecPhotos = state.participants.filter(function (p) { return p.photos.length > 0; });
+      /* premier groupe déplié par défaut, pour que la section ne paraisse pas vide */
+      if (groupeOuvert === null && avecPhotos.length && !gallery.dataset.initialise) {
+        groupeOuvert = avecPhotos[0].id;
+        gallery.dataset.initialise = "1";
+      }
+      state.participants.forEach(function (person) {
+        gallery.append(groupeParticipant(person));
       });
       document.getElementById("galleryEmpty").hidden = state.photos.length > 0;
-      visible.forEach(function (ph) {
-        const author = participantById(ph.participantId);
-        const card = document.createElement("article");
-        card.className = "photo-card";
-        const img = document.createElement("img");
-        img.src = ph.src;
-        img.alt = "Photographie de " + (author ? author.name : "participant") + (ph.word ? " — " + ph.word : "");
-        img.loading = "lazy";
-        const body = document.createElement("div");
-        body.className = "photo-card-body";
-        const authorLine = document.createElement("span");
-        authorLine.className = "photo-card-author";
-        authorLine.innerHTML = '<span class="author-dot" style="background:' + (author ? author.color : "#999") + '"></span>' + esc(author ? author.name : "Participant");
-        body.append(authorLine);
-        if (ph.word) {
-          const word = document.createElement("p");
-          word.className = "photo-card-word";
-          word.textContent = "« " + ph.word + " »";
-          body.append(word);
-        }
-        if (ph.caption) {
-          const caption = document.createElement("p");
-          caption.className = "photo-card-caption";
-          caption.textContent = ph.caption;
-          body.append(caption);
-        }
-        const meta = document.createElement("p");
-        meta.className = "photo-card-meta";
-        meta.textContent = "📍 " + formatCoords(ph.lat, ph.lng) + (ph.date ? " · " + ph.date : "");
-        body.append(meta);
-        const actions = document.createElement("div");
-        actions.className = "photo-card-actions";
-        const viewBtn = document.createElement("button");
-        viewBtn.type = "button";
-        viewBtn.className = "ghost small-btn";
-        viewBtn.textContent = "🗺️ Voir sur la carte";
-        viewBtn.addEventListener("click", function () { focusPhotoOnMap(ph.id); });
-        actions.append(viewBtn);
-        body.append(actions);
-        card.append(img, body);
-        gallery.append(card);
-      });
+      const total = document.getElementById("galleryTotal");
+      if (total) total.textContent = state.photos.length
+        ? state.photos.length + " photographies · " + avecPhotos.length + " participants"
+        : "";
     }
+
     function renderAll() {
       renderParticipants();
       renderStats();

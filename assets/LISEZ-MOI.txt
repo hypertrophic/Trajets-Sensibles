@@ -11,7 +11,9 @@ de chacun :
     assets/participant-5/   ← photos du Participant 5
 
 Ensuite, déclarez chaque photographie dans le fichier « donnees.js »
-(chemin du fichier + coordonnées géolocalisées lat/lng + mot/légende).
+(chemin du fichier + coordonnées géolocalisées lat/lng, et éventuellement
+une date). Les photographies n'ont ni titre ni description : le site les
+numérote dans l'ordre du trajet et les regroupe sous le nom du participant.
 Tout est expliqué en haut de donnees.js et dans le MODE-D-EMPLOI.
 
 --------------------------------------------------------------
@@ -38,8 +40,8 @@ POUR PASSER AUX VRAIES PHOTOGRAPHIES — deux méthodes :
   1. Le plus simple : écrasez chaque fichier de démonstration par la
      vraie photographie EN GARDANT LE MÊME NOM (ex. votre photo de
      fissure remplace assets/participant-1/fissure.jpg). Les chemins
-     de donnees.js restent valides ; seuls les lat/lng, mots et
-     légendes sont à corriger.
+     de donnees.js restent valides ; seuls les lat/lng (et les dates)
+     sont à corriger.
 
   2. Ou repartez de zéro : videz les dossiers participant-*, puis
      remplacez « donnees.js » par « donnees-vide.js » (livré à côté
