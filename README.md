@@ -10,7 +10,6 @@ fait s'arrêter et regarder autrement.
 | | |
 |---|---|
 | **Idée et conception du projet** | **Chaimae SEBTI** — M1 Arts Plastiques |
-| **Site web et développement** | **hypertrophic** — [github.com/hypertrophic](https://github.com/hypertrophic) |
 | Fonds de carte | © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues) |
 | Itinéraires piétons | © OpenStreetMap contributors (serveur OSRM) |
 
@@ -59,7 +58,7 @@ vider les dossiers `assets/participant-*`.
 2. Dans le dépôt : **Settings → Pages → Build and deployment → Source : Deploy from a branch**,
    puis **Branch : `main`** et dossier **`/ (root)`**. Enregistrer.
 3. Attendre une minute : le site est en ligne sur
-   `https://<compte>.github.io/<depot>/` (ex. `https://hypertrophic.github.io/trajets-sensibles/`).
+   `https://<compte>.github.io/<depot>/` — ici : **https://hypertrophic.github.io/Trajets-Sensibles/**.
 
 Aucune étape de compilation n'est nécessaire : ce dépôt ne contient que des fichiers à servir
 tels quels. Le fichier `.nojekyll` évite que GitHub Pages ne tente de « compiler » le site avec
@@ -71,5 +70,6 @@ en une minute environ.
 
 ---
 
-*Atelier de cartographie sensible collective — Chaimae SEBTI, M1 Arts Plastiques. Site web et
-développement : hypertrophic ([github.com/hypertrophic](https://github.com/hypertrophic)).*
+*Atelier de cartographie sensible collective — Chaimae SEBTI, M1 Arts Plastiques.*
+
+<sub>Site web : [hypertrophic](https://github.com/hypertrophic)</sub>

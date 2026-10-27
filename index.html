@@ -165,13 +165,8 @@
     .feature p em { color: #a99fd8; }
 
     footer { border-top: 1px solid var(--line); padding: 30px 28px; text-align: center; font-size: .8rem; color: #666671; line-height: 1.8; }
-    footer .credits { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 26px; margin: 0 auto 14px; max-width: 780px; }
-    footer .credit { color: #85858f; }
-    footer .credit strong { color: #dddde6; font-weight: 600; }
-    footer .credit-role { display: block; color: #5d5d67; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 2px; }
-    footer a.credit-link { color: #b9a9f7; text-decoration: none; border-bottom: 1px solid rgba(185,169,247,.35); }
-    footer a.credit-link:hover, footer a.credit-link:focus-visible { color: #fff; border-bottom-color: #fff; }
-    footer .footer-legal { color: #52525b; font-size: .74rem; line-height: 1.9; }
+    footer a.credit-link { color: #7b7b88; text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,.22); }
+    footer a.credit-link:hover, footer a.credit-link:focus-visible { color: #cfcfda; border-bottom-color: #cfcfda; }
 
     @media (max-width: 1080px) {
       .workspace { grid-template-columns: 1fr; }
@@ -325,22 +320,11 @@
   </main>
 
   <footer>
-    <div class="credits">
-      <span class="credit">
-        <span class="credit-role">Idée et conception du projet</span>
-        <strong>Chaimae SEBTI</strong> · M1 Arts Plastiques
-      </span>
-      <span class="credit">
-        <span class="credit-role">Site web et développement</span>
-        <a class="credit-link" href="https://github.com/hypertrophic" target="_blank" rel="noopener noreferrer">hypertrophic</a> · github.com/hypertrophic
-      </span>
-    </div>
-    <div class="footer-legal">
-      © <span id="year"></span> TrajetsSensibles — Cartographie sensible collective à Metz, France<br>
-      De La République (60 Rue de la Chapelle) à la Cathédrale Saint-Étienne (2 Pl. de Chambre)<br>
-      Fonds de carte © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues)<br>
-      Itinéraires piétons calculés sur le réseau © OpenStreetMap contributors (serveur OSRM)
-    </div>
+    © <span id="year"></span> TrajetsSensibles — Cartographie sensible collective à Metz, France<br>
+    Atelier de Chaimae SEBTI · M1 Arts Plastiques · De La République (60 Rue de la Chapelle) à la Cathédrale Saint-Étienne (2 Pl. de Chambre)<br>
+    Fonds de carte © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues)<br>
+    Itinéraires piétons calculés sur le réseau © OpenStreetMap contributors (serveur OSRM)<br>
+    Site web : <a class="credit-link" href="https://github.com/hypertrophic" target="_blank" rel="noopener noreferrer">hypertrophic</a>
   </footer>
 
   <!--

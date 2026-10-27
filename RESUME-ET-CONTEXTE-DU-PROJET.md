@@ -108,14 +108,5 @@ Le site est entièrement **statique** : aucun serveur ni compte n'est nécessair
 
 ---
 
-## Crédits
-
-- **Idée et conception du projet** : **Chaimae SEBTI**, M1 Arts Plastiques.
-- **Site web et développement informatique** : **hypertrophic** — [github.com/hypertrophic](https://github.com/hypertrophic).
-- **Fonds de carte** : © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues).
-- **Itinéraires piétons** : © OpenStreetMap contributors (serveur OSRM).
-
----
-
-*Atelier Cartographie sensible collective — Chaimae SEBTI, M1 Arts Plastiques. Site web et développement : hypertrophic (github.com/hypertrophic).*
+*Atelier Cartographie sensible collective — Chaimae SEBTI, M1 Arts Plastiques.*
 *Fonds de carte : © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues). Itinéraires piétons : © OpenStreetMap contributors (serveur OSRM).*
