@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050508">
+  <meta name="description" content="TrajetsSensibles — cartographie sensible collective à Metz, France : les participants relient La République à la Cathédrale Saint-Étienne en photographiant ce qui les fait s'arrêter. Chaque photo est géolocalisée sur la carte commune.">
+  <title>TrajetsSensibles — Cartographie sensible collective · Metz, France</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050508;
+      --panel: #09090d;
+      --line: rgba(255,255,255,.09);
+      --text: #e4e4eb;
+      --muted: #858591;
+      --violet: #a78bfa;
+      --blue: #67a4fa;
+      --green: #34d399;
+      --a-color: #5b7cfa;
+      --b-color: #f0566e;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; }
+    button { font: inherit; cursor: pointer; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid #a78bfa; outline-offset: 3px; }
+    [hidden] { display: none !important; }
+
+    /* ---------- Navigation ---------- */
+    .navbar {
+      position: sticky; top: 0; z-index: 2000; height: 76px; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(5,5,8,.92); border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+    .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 700 1.65rem/1 "Space Grotesk", sans-serif; letter-spacing: -.6px; }
+    .logo svg { width: 34px; height: 34px; }
+    .logo-text { background: linear-gradient(105deg,#a78bfa,#65a4fa,#34d399); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: #a78bfa; }
+    .logo-text span { font-weight: 400; }
+    .nav-links { display: flex; align-items: center; gap: 38px; margin: 0; padding: 0; list-style: none; }
+    .nav-links a { color: #92919e; text-decoration: none; font-size: .95rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: #fff; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: #111117; color: white; border-radius: 10px; width: 44px; height: 44px; font-size: 1.25rem; }
+
+    /* ---------- Hero ---------- */
+    .hero { text-align: center; padding: 76px 24px 40px; position: relative; overflow: hidden; }
+    .hero::before { content: ""; pointer-events: none; position: absolute; width: 800px; height: 370px; top: -70px; left: 50%; transform: translateX(-50%); background: radial-gradient(ellipse,rgba(137,110,224,.13),transparent 70%); }
+    .hero > * { position: relative; }
+    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; }
+    h1 { margin: 0 0 20px; font-size: clamp(2.4rem,5.5vw,4.5rem); line-height: 1.08; letter-spacing: -.045em; }
+    .gradient-text { background: linear-gradient(100deg,#a78bfa,#69a7fa,#34d399); color: #a78bfa; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 1.05rem; line-height: 1.75; }
+    .hero p strong { color: #d9d9e2; font-weight: 600; }
+    .stats { display: flex; justify-content: center; gap: clamp(2rem,6vw,6rem); margin-top: 38px; flex-wrap: wrap; }
+    .stat-number { font: 700 2rem/1 "Space Grotesk",sans-serif; color: #ae9bfc; }
+    .stat-label { margin-top: 8px; color: #777783; font-size: .8rem; }
+
+    /* ---------- Bandeau parcours A → B (points fixes) ---------- */
+    .section-wrap { width: min(1440px, calc(100% - 64px)); margin: 0 auto; }
+    .route-strip { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: stretch; margin: 14px auto 22px; }
+    .route-point { display: flex; gap: 15px; align-items: flex-start; background: rgba(255,255,255,.025); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+    .route-badge { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 50%; font: 700 1rem "Space Grotesk",sans-serif; color: #fff; }
+    .badge-a { background: var(--a-color); }
+    .badge-b { background: var(--b-color); }
+    .route-point small { display: block; color: #858591; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+    .route-point strong { display: block; color: #f2f2f6; font-size: 1rem; }
+    .route-point > div > span { display: block; color: #8b8b96; font-size: .82rem; margin-top: 3px; line-height: 1.45; }
+    .route-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: #a78bfa; font-size: 1.6rem; }
+    .route-arrow small { color: #777783; font-size: .7rem; white-space: nowrap; }
+
+    /* ---------- Espace carte + barre latérale ---------- */
+    .workspace { display: grid; grid-template-columns: minmax(0,1fr) 350px; gap: 20px; align-items: start; }
+    .map-card { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #0b0b11; min-width: 0; }
+    .map-stage { position: relative; }
+    #map { height: 600px; width: 100%; background: #101018; z-index: 0; font-family: Inter, sans-serif; }
+    .map-tag { position: absolute; top: 14px; left: 54px; z-index: 600; padding: 9px 12px; border-radius: 10px; background: rgba(10,10,15,.88); border: 1px solid var(--line); font-size: .73rem; color: #b9b9c4; pointer-events: none; }
+    .map-tag strong { color: #fff; }
+    .basemap-switch { position: absolute; top: 14px; right: 14px; z-index: 600; display: flex; gap: 6px; background: rgba(10,10,15,.88); border: 1px solid var(--line); border-radius: 11px; padding: 5px; }
+    .basemap-switch button { border: 0; border-radius: 8px; padding: 7px 11px; background: transparent; color: #9a9aa6; font-size: .74rem; font-weight: 600; }
+    .basemap-switch button[aria-pressed="true"] { background: linear-gradient(110deg,#a78bfa,#68a5fa); color: #10101a; }
+    .route-switch { top: 62px; right: 14px; }
+    .route-status { color: #7f8f86; font-size: .72rem; }
+    .route-status.is-warn { color: #c9bdf5; }
+    .recenter-btn { position: absolute; right: 14px; bottom: 26px; z-index: 600; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; background: rgba(10,10,15,.88); color: #d6d6df; font-size: .76rem; font-weight: 600; }
+    .recenter-btn:hover { background: rgba(255,255,255,.1); }
+    .map-legend { display: flex; align-items: center; gap: 14px 22px; padding: 14px 22px; background: #0a0a10; border-top: 1px solid var(--line); font-size: .8rem; color: #9999a5; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 9px; }
+    .legend-badge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; font-weight: 700; font-size: .7rem; color: #fff; flex: none; }
+    .legend-photo { width: 20px; height: 20px; border-radius: 50%; border: 3px solid #a78bfa; background: #2a2440; flex: none; }
+    .legend-line { width: 26px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,#a78bfa,#34d399); flex: none; }
+    .clicked-coords { color: #c9bdf5; font-weight: 600; }
+    .map-fallback-note { padding: 10px 22px; background: #17131f; color: #c9bdf5; font-size: .78rem; line-height: 1.5; border-top: 1px solid var(--line); }
+
+    /* Marqueurs personnalisés Leaflet */
+    .ab-marker { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 3px solid #fff; color: #fff; font: 700 .95rem "Space Grotesk",sans-serif; box-shadow: 0 6px 18px rgba(0,0,0,.55); }
+    .ab-a { background: var(--a-color); }
+    .ab-b { background: var(--b-color); }
+    .photo-marker { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; box-shadow: 0 6px 18px rgba(0,0,0,.55); background: #222; }
+    .photo-marker img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .leaflet-popup-content-wrapper { background: #12121a; color: #e4e4eb; border: 1px solid rgba(255,255,255,.14); border-radius: 14px; }
+    .leaflet-popup-tip { background: #12121a; }
+    .leaflet-popup-content { margin: 0; width: 270px !important; font-family: Inter, sans-serif; }
+    .leaflet-popup-close-button { z-index: 5; color: #fff !important; text-shadow: 0 1px 6px #000; }
+    .popup-photo img { width: 100%; height: 170px; object-fit: cover; display: block; border-radius: 14px 14px 0 0; }
+    .popup-body { padding: 12px 14px 14px; }
+    .popup-word { font: italic 600 1.02rem "Space Grotesk",sans-serif; color: #fff; margin: 0 0 6px; }
+    .popup-caption { color: #b5b5bf; font-size: .82rem; line-height: 1.55; margin: 0 0 8px; }
+    .popup-meta { color: #7d7d89; font-size: .72rem; line-height: 1.6; margin: 0; }
+    .popup-author { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #e8e8ef; font-size: .78rem; margin-bottom: 6px; }
+    .author-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+    .leaflet-control-attribution { background: rgba(8,8,12,.75) !important; color: #6d6d78 !important; font-size: .62rem !important; }
+    .leaflet-control-attribution a { color: #8b8b98 !important; }
+
+    /* ---------- Panneau Participants ---------- */
+    .sidebar { display: flex; flex-direction: column; gap: 18px; }
+    .panel { background: rgba(255,255,255,.025); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+    .panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+    .panel-heading h2 { font-size: 1rem; margin: 0; color: #fff; }
+    .panel-heading small { font: 700 .95rem "Space Grotesk",sans-serif; color: #ae9bfc; white-space: nowrap; }
+    .participant { width: 100%; display: flex; align-items: center; gap: 11px; padding: 10px 8px; text-align: left; background: transparent; color: inherit; border: 1px solid transparent; border-radius: 11px; }
+    .participant:hover, .participant[aria-pressed="true"] { background: rgba(255,255,255,.05); border-color: var(--line); }
+    .avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; flex: none; font-size: .72rem; font-weight: 700; color: #101115; }
+    .participant-info { flex: 1; min-width: 0; }
+    .participant-name { display: block; color: #efeff2; font-size: .84rem; font-weight: 600; }
+    .participant-sub { display: block; color: #7e7e89; font-size: .72rem; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .participant-word { display: block; color: #c3b6f5; font-size: .72rem; font-style: italic; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .color-key { width: 23px; height: 4px; border-radius: 4px; flex: none; }
+    .panel-hint { color: #73737e; font-size: .73rem; line-height: 1.55; margin: 10px 0 0; }
+    .ghost { border-radius: 10px; padding: 11px 13px; border: 1px solid var(--line); font-size: .82rem; font-weight: 600; background: transparent; color: #b8b8c2; }
+    .ghost:hover { background: rgba(255,255,255,.07); color: white; }
+    .clear-filter { margin-top: 10px; width: 100%; }
+    .small-btn { padding: 8px 10px; font-size: .76rem; flex: 1; }
+
+    /* ---------- Galerie ---------- */
+    .gallery-section { padding: 90px 0 20px; }
+    .section-intro { text-align: center; margin-bottom: 50px; }
+    .section-intro h2 { font-size: clamp(2rem,3vw,2.55rem); letter-spacing: -.035em; margin: 0 0 12px; }
+    .section-intro p { margin: 0 auto; max-width: 720px; color: #777784; font-size: 1.02rem; line-height: 1.65; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    .photo-card { background: #08080c; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .photo-card img { width: 100%; height: 190px; object-fit: cover; display: block; }
+    .photo-card-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .photo-card-word { font: italic 600 1rem "Space Grotesk",sans-serif; color: #fff; margin: 0; }
+    .photo-card-caption { color: #9a9aa6; font-size: .84rem; line-height: 1.55; margin: 0; }
+    .photo-card-meta { color: #6d6d78; font-size: .73rem; line-height: 1.6; margin: 0; }
+    .photo-card-author { display: inline-flex; align-items: center; gap: 7px; font-size: .78rem; font-weight: 600; color: #dddde6; }
+    .photo-card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 8px; }
+    .empty-state { text-align: center; padding: 55px 30px; border: 1px dashed rgba(167,139,250,.4); border-radius: 18px; color: #8b8b96; line-height: 1.7; }
+    .empty-state strong { color: #d9d9e2; display: block; font-size: 1.05rem; margin-bottom: 6px; }
+
+    /* ---------- Fonctionnalités ---------- */
+    .features { padding: 100px 0 90px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; }
+    .feature { min-height: 240px; padding: 36px; background: #08080c; border: 1px solid var(--line); border-radius: 20px; }
+    .feature-icon { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 15px; font-size: 27px; margin-bottom: 22px; }
+    .feature h3 { font-size: 1.16rem; color: #f2f2f5; margin: 0 0 12px; }
+    .feature p { margin: 0; color: #777783; font-size: .96rem; line-height: 1.65; }
+    .feature p em { color: #a99fd8; }
+
+    footer { border-top: 1px solid var(--line); padding: 30px 28px; text-align: center; font-size: .8rem; color: #666671; line-height: 1.8; }
+    footer .credits { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 26px; margin: 0 auto 14px; max-width: 780px; }
+    footer .credit { color: #85858f; }
+    footer .credit strong { color: #dddde6; font-weight: 600; }
+    footer .credit-role { display: block; color: #5d5d67; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 2px; }
+    footer a.credit-link { color: #b9a9f7; text-decoration: none; border-bottom: 1px solid rgba(185,169,247,.35); }
+    footer a.credit-link:hover, footer a.credit-link:focus-visible { color: #fff; border-bottom-color: #fff; }
+    footer .footer-legal { color: #52525b; font-size: .74rem; line-height: 1.9; }
+
+    @media (max-width: 1080px) {
+      .workspace { grid-template-columns: 1fr; }
+      #map { height: 540px; }
+    }
+    @media (max-width: 760px) {
+      .navbar { height: 68px; padding: 0 18px; }
+      .logo { font-size: 1.35rem; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; left: 12px; right: 12px; top: 74px; padding: 12px; background: #111117; border: 1px solid var(--line); border-radius: 14px; flex-direction: column; align-items: stretch; gap: 0; z-index: 3000; }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 13px; }
+      .hero { padding: 56px 20px 34px; }
+      .hero p { font-size: .95rem; }
+      .stat-number { font-size: 1.55rem; }
+      .section-wrap { width: calc(100% - 32px); }
+      .route-strip { grid-template-columns: 1fr; }
+      .route-arrow { transform: rotate(90deg); padding: 2px 0; }
+      .route-arrow small { display: none; }
+      #map { height: 450px; }
+      .map-tag { left: 48px; top: 10px; font-size: .68rem; }
+      .basemap-switch { top: auto; bottom: 64px; right: 10px; }
+      .route-switch { top: auto; bottom: 158px; right: 10px; }
+      .recenter-btn { bottom: 112px; right: 10px; }
+      .features-grid { grid-template-columns: 1fr; gap: 14px; }
+      .feature { min-height: 0; padding: 28px; }
+    }
+    @media (min-width: 761px) and (max-width: 1080px) { .features-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="#top" aria-label="TrajetsSensibles, accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <defs><linearGradient id="logoGradient" x1="3" y1="28" x2="29" y2="3" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset=".52" stop-color="#60a5fa"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+        <path d="M6 24C10 8 18 28 26 8" stroke="url(#logoGradient)" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="6" cy="24" r="3.4" stroke="#a78bfa" stroke-width="2" fill="#050508"/><circle cx="26" cy="8" r="3.5" fill="#34d399"/>
+      </svg>
+      <span class="logo-text">Trajets<span>Sensibles</span></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navigation">☰</button>
+    <nav aria-label="Navigation principale">
+      <ul class="nav-links" id="navigation">
+        <li><a href="#carte">Carte</a></li>
+        <li><a href="#photographies">Photographies</a></li>
+        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Un même trajet,<br><span class="gradient-text">Metz, France</span></h1>
+      <p>Comment un même espace géographique peut-il être vécu et perçu différemment d’une personne à une autre&nbsp;?
+      De <strong>La République</strong> à la <strong>Cathédrale Saint-Étienne</strong>, les participants choisissent librement leur itinéraire
+      et photographient <strong>ce qui les fait s’arrêter et regarder autrement</strong> — une couleur, une ombre, une fissure, un objet abandonné, un détail qui rappelle un souvenir.
+      Leurs images géolocalisées composent peu à peu une mémoire collective du territoire traversé.</p>
+      <div class="stats" aria-label="Le projet en chiffres">
+        <div><div class="stat-number" id="statParticipants">0</div><div class="stat-label">Participants en chemin</div></div>
+        <div><div class="stat-number" id="statPhotos">0</div><div class="stat-label">Photos géolocalisées</div></div>
+        <div><div class="stat-number" id="statDistance">—</div><div class="stat-label">De A à B à vol d’oiseau</div></div>
+      </div>
+    </section>
+
+    <div class="route-strip section-wrap" aria-label="Parcours commun de l'atelier">
+      <div class="route-point">
+        <span class="route-badge badge-a" aria-hidden="true">A</span>
+        <div>
+          <small>Point de départ commun</small>
+          <strong>La République</strong>
+          <span>60 Rue de la Chapelle, 57000 Metz<br>49.09920, 6.17332</span>
+        </div>
+      </div>
+      <div class="route-arrow" aria-hidden="true">→<small>itinéraire libre</small></div>
+      <div class="route-point">
+        <span class="route-badge badge-b" aria-hidden="true">B</span>
+        <div>
+          <small>Point d’arrivée commun</small>
+          <strong>Cathédrale Saint-Étienne de Metz</strong>
+          <span>2 Pl. de Chambre, 57000 Metz<br>49.12028, 6.17579</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section-wrap" id="carte" aria-label="Carte des trajets photographiques à Metz, France">
+      <div class="workspace">
+        <div class="map-card">
+          <div class="map-stage">
+            <div id="map" role="application" aria-label="Carte de Metz, France. Le point A est La République, 60 Rue de la Chapelle ; le point B est la Cathédrale Saint-Étienne, 2 Place de Chambre. Les vignettes rondes sont les photographies géolocalisées des participants."></div>
+            <div id="mapFallback" hidden></div>
+            <div class="map-tag"><strong>Metz, France · A → B</strong> &nbsp;·&nbsp; Les chemins vécus du projet</div>
+            <div class="basemap-switch" id="basemapSwitch" role="group" aria-label="Fond de carte">
+              <button type="button" id="baseClean" aria-pressed="true">Carte épurée</button>
+              <button type="button" id="baseStreets" aria-pressed="false">Noms de rues</button>
+            </div>
+            <div class="basemap-switch route-switch" id="routeSwitch" role="group" aria-label="Tracé des chemins">
+              <button type="button" id="routeStreets" aria-pressed="true" title="Chaque portion du trajet suit le réseau piéton (rues, passages, escaliers)">Rues</button>
+              <button type="button" id="routeDirect" aria-pressed="false" title="Relier les photos par des segments droits, à vol d'oiseau">Direct</button>
+            </div>
+            <button class="recenter-btn" id="recenter" type="button">◎ Recentrer A → B</button>
+          </div>
+          <div class="map-fallback-note" id="fallbackNote" hidden>⚠️ La carte en ligne n’a pas pu se charger (aperçu sans connexion). Un fond schématique de Metz, France est affiché à la place : les points A et B et les photographies restent positionnés selon leurs vraies coordonnées. Ouvrez la page avec une connexion internet pour voir le plan réel de Metz, France.</div>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-badge badge-a">A</span> La République — départ</span>
+            <span class="legend-item"><span class="legend-badge badge-b">B</span> Cathédrale Saint-Étienne — arrivée</span>
+            <span class="legend-item"><span class="legend-photo" aria-hidden="true"></span> Photographie géolocalisée</span>
+            <span class="legend-item"><span class="legend-line" aria-hidden="true"></span> Chemin d’un participant — itinéraire piéton le long des rues</span>
+            <span class="legend-item route-status" id="routeStatus" hidden></span>
+            <span class="legend-item clicked-coords" id="clickedCoords" hidden></span>
+          </div>
+        </div>
+
+        <aside class="sidebar" aria-label="Participants">
+          <div class="panel">
+            <div class="panel-heading"><h2>Participants</h2><small id="participantCount" title="Participants en chemin">0</small></div>
+            <div id="participants"></div>
+            <button class="ghost clear-filter" id="clearFilter" type="button" hidden>Voir tous les trajets</button>
+            <p class="panel-hint">Sélectionnez un participant pour mettre son chemin et ses photographies en évidence. Cliquez à nouveau pour tout réafficher.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="gallery-section section-wrap" id="photographies">
+      <div class="section-intro">
+        <h2>Les regards du trajet</h2>
+        <p>«&nbsp;Photographier ce qui fait s’arrêter et regarder autrement.&nbsp;» Toutes les photographies géolocalisées entre La République et la Cathédrale Saint-Étienne, dans l’ordre des chemins parcourus.</p>
+      </div>
+      <div class="gallery-grid" id="gallery"></div>
+      <div class="empty-state" id="galleryEmpty">
+        <strong>Photographies à venir</strong>
+        Les emplacements sont réservés : les photographies des participants apparaîtront ici, ainsi que sur la carte commune, à l’endroit où chacune a été prise.
+      </div>
+    </section>
+
+    <section class="features section-wrap" id="fonctionnalites">
+      <div class="section-intro">
+        <h2>Comment ça fonctionne</h2>
+        <p>Une cartographie sensible collective, centrée sur l’essentiel : les chemins réellement vécus et ce qui, en route, a retenu le regard.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature"><div class="feature-icon" style="background:#141a33">🎯</div><h3>Un départ, une arrivée</h3><p>Tous partent du point A — La République, 60 Rue de la Chapelle — et rejoignent le point B — la Cathédrale Saint-Étienne. Entre les deux, l’itinéraire est entièrement libre.</p></article>
+        <article class="feature"><div class="feature-icon" style="background:#191625">📷</div><h3>Photographier l’arrêt</h3><p>Une seule consigne : photographier ce qui fait <em>s’arrêter et regarder autrement</em>. Une couleur, une ombre, une fissure, une présence, un objet abandonné… Non les plus belles images, mais les détails ordinaires qui passent inaperçus.</p></article>
+        <article class="feature"><div class="feature-icon" style="background:#0e2220">📍</div><h3>Chaque photo géolocalisée</h3><p>Chaque photographie est placée sur la carte de Metz, France à l’endroit où elle a été prise, grâce à ses coordonnées géolocalisées. Reliées dans l’ordre du trajet, elles dessinent le chemin vécu par chacun.</p></article>
+        <article class="feature"><div class="feature-icon" style="background:#272015">🔀</div><h3>Des chemins qui se croisent</h3><p>Certains trajets se rejoignent, d’autres divergent ; un même lieu peut apparaître à travers plusieurs regards. La carte révèle comment chacun accorde une importance différente aux endroits traversés.</p></article>
+        <article class="feature"><div class="feature-icon" style="background:#1b1427">📝</div><h3>Un mot à l’arrivée</h3><p>Une fois à la Cathédrale, chaque participant partage un mot, un souvenir ou une impression de son trajet. Les photographies deviennent des traces de son expérience — des supports de mémoire.</p></article>
+        <article class="feature"><div class="feature-icon" style="background:#251720">✨</div><h3>Une mémoire collective</h3><p>Dans le sillage de l’<em>infra-ordinaire</em> de Georges Perec, de la <em>cartographie sensible</em> d’Élise Olmedo et du projet <em>Urban Belonging</em> (Copenhagen, Danemark, 2022), la carte finale ne propose pas une vision unique du territoire, mais une coexistence de subjectivités.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="credits">
+      <span class="credit">
+        <span class="credit-role">Idée et conception du projet</span>
+        <strong>Chaimae SEBTI</strong> · M1 Arts Plastiques
+      </span>
+      <span class="credit">
+        <span class="credit-role">Site web et développement</span>
+        <a class="credit-link" href="https://github.com/hypertrophic" target="_blank" rel="noopener noreferrer">hypertrophic</a> · github.com/hypertrophic
+      </span>
+    </div>
+    <div class="footer-legal">
+      © <span id="year"></span> TrajetsSensibles — Cartographie sensible collective à Metz, France<br>
+      De La République (60 Rue de la Chapelle) à la Cathédrale Saint-Étienne (2 Pl. de Chambre)<br>
+      Fonds de carte © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues)<br>
+      Itinéraires piétons calculés sur le réseau © OpenStreetMap contributors (serveur OSRM)
+    </div>
+  </footer>
+
+  <!--
+    ════════════════════════════════════════════════════════════════════
+    DONNÉES DE L'ATELIER — À REMPLIR PAR L'ORGANISATRICE
+    Les participants et leurs photographies (assets) se déclarent dans
+    le fichier « donnees.js », situé à côté de cette page.
+    C'est le SEUL fichier à modifier : voir le MODE-D-EMPLOI.
+    ════════════════════════════════════════════════════════════════════
+  -->
+  <script src="donnees.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    "use strict";
+    /* ================= Parcours fixe de l'atelier (Metz, France) ================= */
+    const POINT_A = { label: "A", name: "La République", address: "60 Rue de la Chapelle, 57000 Metz", lat: 49.0991984, lng: 6.1733178 };
+    const POINT_B = { label: "B", name: "Cathédrale Saint-Étienne de Metz", address: "2 Pl. de Chambre, 57000 Metz", lat: 49.1202811, lng: 6.1757916 };
+    const PALETTE = ["#a78bfa", "#34d399", "#67a4fa", "#f178aa", "#e8c547"];
+
+    /* Données par défaut, utilisées uniquement si le fichier donnees.js
+       est absent. Les listes « photos » sont volontairement VIDES :
+       ce sont les emplacements à remplir dans donnees.js. */
+    const DONNEES_PAR_DEFAUT = {
+      participants: [
+        { nom: "Participant 1", couleur: "#a78bfa", motDuTrajet: "", photos: [] },
+        { nom: "Participant 2", couleur: "#34d399", motDuTrajet: "", photos: [] },
+        { nom: "Participant 3", couleur: "#67a4fa", motDuTrajet: "", photos: [] },
+        { nom: "Participant 4", couleur: "#f178aa", motDuTrajet: "", photos: [] },
+        { nom: "Participant 5", couleur: "#e8c547", motDuTrajet: "", photos: [] }
+      ]
+    };
+
+    /* ================= Lecture et préparation des données ================= */
+    function preparerDonnees(brutes) {
+      const source = (brutes && Array.isArray(brutes.participants) && brutes.participants.length)
+        ? brutes.participants
+        : DONNEES_PAR_DEFAUT.participants;
+      const participants = source.map(function (p, i) {
+        const id = "p" + (i + 1);
+        const couleurValide = p && typeof (p.couleur || p.color) === "string" && /^#[0-9a-f]{6}$/i.test(p.couleur || p.color);
+        const photosBrutes = p && Array.isArray(p.photos) ? p.photos : [];
+        const photos = photosBrutes.map(function (ph, j) {
+          if (!ph || typeof ph !== "object") return null;
+          const lat = Number(ph.lat != null ? ph.lat : ph.latitude);
+          const lng = Number(ph.lng != null ? ph.lng : ph.longitude);
+          const src = ph.fichier || ph.src || ph.image || "";
+          if (!src || !isFinite(lat) || !isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) return null;
+          return {
+            id: id + "-photo-" + (j + 1),
+            participantId: id,
+            src: String(src),
+            lat: lat,
+            lng: lng,
+            word: typeof (ph.mot || ph.word) === "string" ? (ph.mot || ph.word) : "",
+            caption: typeof (ph.legende || ph.caption) === "string" ? (ph.legende || ph.caption) : "",
+            date: ph.date != null ? String(ph.date) : ""
+          };
+        }).filter(Boolean);
+        return {
+          id: id,
+          name: (p && typeof (p.nom || p.name) === "string" && (p.nom || p.name).trim()) ? (p.nom || p.name).trim() : "Participant " + (i + 1),
+          color: couleurValide ? (p.couleur || p.color) : PALETTE[i % PALETTE.length],
+          journeyWord: (p && typeof (p.motDuTrajet || p.journeyWord) === "string") ? (p.motDuTrajet || p.journeyWord).trim() : "",
+          photos: photos
+        };
+      });
+      const photos = [];
+      participants.forEach(function (person) {
+        person.photos.forEach(function (ph) { photos.push(ph); });
+      });
+      return { participants: participants, photos: photos };
+    }
+    const state = preparerDonnees(window.DONNEES_ATELIER);
+
+    /* ================= Utilitaires ================= */
+    function esc(value) {
+      return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+    function initials(name) {
+      const parts = String(name || "?").trim().split(/\s+/);
+      if (parts.length >= 2 && /^\d+$/.test(parts[1])) return (parts[0][0] || "?").toUpperCase() + parts[1];
+      return parts.slice(0, 2).map(function (w) { return (w[0] || "").toUpperCase(); }).join("") || "?";
+    }
+    function haversineKm(a, b) {
+      const rad = function (n) { return n * Math.PI / 180; };
+      const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng);
+      const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2;
+      return 6371 * 2 * Math.asin(Math.sqrt(h));
+    }
+    function formatCoords(lat, lng) { return Number(lat).toFixed(5) + ", " + Number(lng).toFixed(5); }
+    function participantById(id) { return state.participants.find(function (p) { return p.id === id; }); }
+    function participantsEnChemin() { return state.participants.filter(function (p) { return p.photos.length > 0; }).length; }
+
+    let selectedParticipantId = null;
+    let map = null, layersGroup = null, fallbackMode = false;
+    let baseCleanLayer = null, baseStreetsLayer = null;
+    const leafletMarkers = {};
+    const leafletPolylines = {};
+
+    /* ================= Itinéraires piétons le long des rues ================= */
+    /* Un trait droit d'une photo à la suivante traversait les immeubles.
+       Désormais chaque portion A → photo 1 → … → photo n → B est calculée sur
+       le réseau piéton d'OpenStreetMap (serveur OSRM) : le tracé suit les rues,
+       tourne aux angles et emprunte passages et escaliers.
+       Les résultats sont mis en cache dans le navigateur (rechargement instantané).
+       Si un segment échoue (hors connexion, serveur indisponible), on retombe
+       sur une COURBE INDICATIVE en pointillés, en attendant l'itinéraire réel. */
+    const ROUTAGE = {
+      service: "https://routing.openstreetmap.de/routed-foot/route/v1/driving/",
+      cache: {},
+      file: [],
+      enCours: 0,
+      maxParallele: 4,
+      echecs: 0,
+      desactive: false
+    };
+    const ROUTAGE_CACHE_CLE = "trajetsSensibles.itineraires.v1";
+    const tracesRues = {};   // id du participant -> [[lat, lng], …]
+    let modeTrace = "rues";  // "rues" (défaut) | "direct"
+
+    function chargerCacheItineraires() {
+      try {
+        const brut = JSON.parse(localStorage.getItem(ROUTAGE_CACHE_CLE) || "{}");
+        if (brut && typeof brut === "object") ROUTAGE.cache = brut;
+      } catch (_) { ROUTAGE.cache = {}; }
+    }
+    function sauverCacheItineraires() {
+      try { localStorage.setItem(ROUTAGE_CACHE_CLE, JSON.stringify(ROUTAGE.cache)); } catch (_) { /* quota / mode privé */ }
+    }
+    function arrondir5(n) { return Math.round(n * 1e5) / 1e5; }
+    function clePoints(points) {
+      return points.map(function (p) { return arrondir5(p[0]) + "," + arrondir5(p[1]); }).join(";");
+    }
+    /* Points de passage du trajet d'un participant : A, ses photos dans l'ordre, B. */
+    function pointsTrace(person) {
+      return [[POINT_A.lat, POINT_A.lng]]
+        .concat(person.photos.map(function (ph) { return [ph.lat, ph.lng]; }))
+        .concat([[POINT_B.lat, POINT_B.lng]]);
+    }
+    /* Courbe de Catmull-Rom : tracé indicatif « à main levée », utilisé tant que
+       l'itinéraire réel n'est pas connu (et sur la carte schématique hors ligne). */
+    function courbeLisse(points) {
+      if (points.length < 3) return points;
+      const P = [points[0]].concat(points, [points[points.length - 1]]);
+      const out = [];
+      for (let i = 1; i < P.length - 2; i++) {
+        const p0 = P[i - 1], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2];
+        for (let j = 0; j < 12; j++) {
+          const t = j / 12, t2 = t * t, t3 = t2 * t;
+          const f = function (a, b, c, d) {
+            return 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3);
+          };
+          out.push([f(p0[0], p1[0], p2[0], p3[0]), f(p0[1], p1[1], p2[1], p3[1])]);
+        }
+      }
+      out.push(points[points.length - 1]);
+      return out;
+    }
+    function demanderItineraire(points) {
+      const cle = clePoints(points);
+      if (ROUTAGE.cache[cle]) return Promise.resolve(ROUTAGE.cache[cle]);
+      if (ROUTAGE.desactive || typeof fetch !== "function") return Promise.resolve(null);
+      return new Promise(function (resolve) {
+        ROUTAGE.file.push({ cle: cle, points: points, resolve: resolve });
+        viderFileRouteur();
+      });
+    }
+    function viderFileRouteur() {
+      while (!ROUTAGE.desactive && ROUTAGE.enCours < ROUTAGE.maxParallele && ROUTAGE.file.length) {
+        const tache = ROUTAGE.file.shift();
+        ROUTAGE.enCours++;
+        interrogerRouteur(tache).then(function (trace) {
+          ROUTAGE.enCours--;
+          tache.resolve(trace);
+          viderFileRouteur();
+        });
+      }
+    }
+    function interrogerRouteur(tache) {
+      /* Une seule requête par participant : A ; photo 1 ; … ; photo n ; B.
+         OSRM relie les points de passage dans l'ordre, le long du réseau piéton. */
+      const url = ROUTAGE.service + tache.points.map(function (p) {
+        return p[1].toFixed(6) + "," + p[0].toFixed(6);
+      }).join(";") + "?overview=full&geometries=geojson&continue_straight=false";
+      const controleur = typeof AbortController !== "undefined" ? new AbortController() : null;
+      const minuteur = setTimeout(function () { if (controleur) controleur.abort(); }, 9000);
+      return fetch(url, controleur ? { signal: controleur.signal } : {})
+        .then(function (reponse) {
+          if (!reponse.ok) throw new Error("HTTP " + reponse.status);
+          return reponse.json();
+        })
+        .then(function (donnees) {
+          clearTimeout(minuteur);
+          const route = donnees && donnees.code === "Ok" && donnees.routes && donnees.routes[0];
+          if (!route || !route.geometry || !route.geometry.coordinates || !route.geometry.coordinates.length) {
+            throw new Error("itinéraire introuvable");
+          }
+          const trace = route.geometry.coordinates.map(function (c) { return [arrondir5(c[1]), arrondir5(c[0])]; });
+          /* On recolle les extrémités exactes aux marqueurs A / photo / B. */
+          const premier = tache.points[0], dernier = tache.points[tache.points.length - 1];
+          trace[0] = [premier[0], premier[1]];
+          trace[trace.length - 1] = [dernier[0], dernier[1]];
+          ROUTAGE.cache[tache.cle] = trace;
+          return trace;
+        })
+        .catch(function () {
+          clearTimeout(minuteur);
+          ROUTAGE.echecs++;
+          if (ROUTAGE.echecs >= 4) ROUTAGE.desactive = true; // serveur muet : on cesse d'insister
+          return null;
+        });
+    }
+    function calculerTraceParticipant(person) {
+      const pts = pointsTrace(person);
+      if (pts.length < 2) return Promise.resolve(null);
+      return demanderItineraire(pts).then(function (trace) {
+        if (trace) return trace;
+        /* Repli : une requête par portion. Utile si un point de passage est
+           mal situé (hors chaussée) et fait échouer la requête globale ;
+           les portions qui aboutissent suivent tout de même les rues. */
+        const segments = [];
+        for (let i = 0; i < pts.length - 1; i++) segments.push([pts[i], pts[i + 1]]);
+        return Promise.all(segments.map(function (seg) { return demanderItineraire(seg); }))
+          .then(function (resultats) {
+            let t = [];
+            resultats.forEach(function (r, i) {
+              const morceau = (r && r.length > 1) ? r : [segments[i][0], segments[i][1]];
+              t = t.concat(t.length ? morceau.slice(1) : morceau);
+            });
+            return t.length > 1 ? t : null;
+          });
+      });
+    }
+    function signalerRoutage(texte, avertissement) {
+      const el = document.getElementById("routeStatus");
+      if (!el) return;
+      el.hidden = !texte;
+      el.textContent = texte || "";
+      el.classList.toggle("is-warn", !!avertissement);
+    }
+    function appliquerGeometrie(pl, person) {
+      const dimmed = selectedParticipantId !== null && selectedParticipantId !== person.id;
+      const provisoire = modeTrace === "rues" && !tracesRues[person.id];
+      pl.setLatLngs(modeTrace === "direct"
+        ? pointsTrace(person)
+        : (tracesRues[person.id] || courbeLisse(pointsTrace(person))));
+      pl.setStyle({
+        weight: dimmed ? 3 : 4.5,
+        opacity: dimmed ? 0.12 : (provisoire ? 0.5 : 0.92),
+        dashArray: provisoire ? "5 8" : null
+      });
+    }
+    /* Calcule les itinéraires réels puis remplace les courbes provisoires.
+       Désactivé sur la carte schématique hors ligne (pas de réseau, et le fond
+       dessiné ne correspond pas au réseau réel). */
+    function chargerTracesRues() {
+      if (fallbackMode || modeTrace !== "rues") return;
+      const enChemin = state.participants.filter(function (p) { return p.photos.length; });
+      if (!enChemin.length) return;
+      signalerRoutage("Calcul des itinéraires piétons…");
+      let restants = enChemin.length, reussis = 0;
+      enChemin.forEach(function (person) {
+        calculerTraceParticipant(person).then(function (trace) {
+          if (trace) { tracesRues[person.id] = trace; reussis++; }
+          restants--;
+          if (restants === 0) {
+            sauverCacheItineraires();
+            if (reussis) signalerRoutage("Itinéraires piétons le long des rues · © OpenStreetMap");
+            else signalerRoutage("Serveur d’itinéraires injoignable : tracés indicatifs en pointillés", true);
+          }
+          const pl = leafletPolylines[person.id];
+          if (pl) appliquerGeometrie(pl, person);
+        });
+      });
+    }
+
+    /* ================= Carte Leaflet (Metz, France) ================= */
+    function popupAB(point, role) {
+      return '<div class="popup-body"><span class="popup-author"><span class="author-dot" style="background:' + (point.label === "A" ? "#5b7cfa" : "#f0566e") + '"></span>Point ' + point.label + " — " + role + '</span>' +
+        '<p class="popup-word">' + esc(point.name) + '</p>' +
+        '<p class="popup-caption">' + esc(point.address) + '</p>' +
+        '<p class="popup-meta">📍 ' + formatCoords(point.lat, point.lng) + '</p></div>';
+    }
+    function popupPhoto(ph) {
+      const author = participantById(ph.participantId);
+      return '<div class="popup-photo"><img src="' + esc(ph.src) + '" alt="Photographie de ' + esc(author ? author.name : "") + '"></div>' +
+        '<div class="popup-body">' +
+        '<span class="popup-author"><span class="author-dot" style="background:' + (author ? author.color : "#999") + '"></span>' + esc(author ? author.name : "Participant") + '</span>' +
+        (ph.word ? '<p class="popup-word">«&nbsp;' + esc(ph.word) + '&nbsp;»</p>' : "") +
+        (ph.caption ? '<p class="popup-caption">' + esc(ph.caption) + '</p>' : "") +
+        '<p class="popup-meta">📍 ' + formatCoords(ph.lat, ph.lng) + (ph.date ? "<br>📷 " + esc(ph.date) : "") + '</p>' +
+        '</div>';
+    }
+    function showClickedCoords(lat, lng) {
+      const el = document.getElementById("clickedCoords");
+      el.hidden = false;
+      el.textContent = "📍 Coordonnées du point cliqué : " + Number(lat).toFixed(6) + ", " + Number(lng).toFixed(6);
+    }
+    function initLeaflet() {
+      map = L.map("map", { scrollWheelZoom: true }).setView([(POINT_A.lat + POINT_B.lat) / 2, (POINT_A.lng + POINT_B.lng) / 2], 14);
+      baseCleanLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 18, maxNativeZoom: 16, attribution: "Tuiles &copy; Esri &mdash; Source : Esri, DeLorme, NAVTEQ"
+      });
+      baseStreetsLayer = L.tileLayer("https://data.geopf.fr/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", {
+        maxZoom: 19, maxNativeZoom: 18, attribution: '&copy; <a href="https://www.ign.fr/">IGN</a> &mdash; Géoplateforme'
+      });
+      baseCleanLayer.addTo(map);
+      layersGroup = L.layerGroup().addTo(map);
+      fitToRoute();
+      map.on("click", function (e) { showClickedCoords(e.latlng.lat, e.latlng.lng); });
+    }
+    function fitToRoute() {
+      const bounds = L.latLngBounds([[POINT_A.lat, POINT_A.lng], [POINT_B.lat, POINT_B.lng]]);
+      map.fitBounds(bounds.pad(0.18));
+    }
+    function renderLeafletLayers() {
+      if (!map || !layersGroup) return;
+      layersGroup.clearLayers();
+      Object.keys(leafletMarkers).forEach(function (k) { delete leafletMarkers[k]; });
+      Object.keys(leafletPolylines).forEach(function (k) { delete leafletPolylines[k]; });
+      [POINT_A, POINT_B].forEach(function (point) {
+        const marker = L.marker([point.lat, point.lng], {
+          icon: L.divIcon({ className: "", html: '<div class="ab-marker ' + (point.label === "A" ? "ab-a" : "ab-b") + '">' + point.label + "</div>", iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -18] }),
+          zIndexOffset: 1000
+        }).bindPopup(popupAB(point, point.label === "A" ? "départ commun" : "arrivée commune"));
+        layersGroup.addLayer(marker);
+      });
+      state.participants.forEach(function (person) {
+        const dimmed = selectedParticipantId !== null && selectedParticipantId !== person.id;
+        if (person.photos.length) {
+          /* Tracé : itinéraire piéton réel s'il est déjà connu, sinon courbe
+             provisoire en pointillés (remplacée dès que le calcul aboutit). */
+          const provisoire = modeTrace === "rues" && !tracesRues[person.id];
+          const linePoints = modeTrace === "direct"
+            ? pointsTrace(person)
+            : (tracesRues[person.id] || courbeLisse(pointsTrace(person)));
+          const ligne = L.polyline(linePoints, {
+            color: person.color,
+            weight: dimmed ? 3 : 4.5,
+            opacity: dimmed ? 0.12 : (provisoire ? 0.5 : 0.92),
+            dashArray: provisoire ? "5 8" : null,
+            lineJoin: "round", lineCap: "round"
+          });
+          leafletPolylines[person.id] = ligne;
+          layersGroup.addLayer(ligne);
+        }
+        person.photos.forEach(function (ph) {
+          const marker = L.marker([ph.lat, ph.lng], {
+            icon: L.divIcon({ className: "", html: '<div class="photo-marker" style="border-color:' + person.color + (dimmed ? ";opacity:.25" : "") + '"><img src="' + esc(ph.src) + '" alt=""></div>', iconSize: [42, 42], iconAnchor: [21, 21], popupAnchor: [0, -21] })
+          }).bindPopup(popupPhoto(ph), { maxWidth: 290, autoPanPadding: [40, 70] });
+          leafletMarkers[ph.id] = marker;
+          layersGroup.addLayer(marker);
+        });
+      });
+    }
+
+    /* ================= Carte schématique de repli (sans connexion) ================= */
+    const FB = { w: 1168, h: 600, lngMin: 6.138, lngMax: 6.215, latMin: 49.09, latMax: 49.13 };
+    function fbX(lng) { return (lng - FB.lngMin) / (FB.lngMax - FB.lngMin) * FB.w; }
+    function fbY(lat) { return (FB.latMax - lat) / (FB.latMax - FB.latMin) * FB.h; }
+    function initFallback() {
+      fallbackMode = true;
+      document.getElementById("map").hidden = true;
+      document.getElementById("basemapSwitch").hidden = true;
+      document.getElementById("fallbackNote").hidden = false;
+      const holder = document.getElementById("mapFallback");
+      holder.hidden = false;
+      holder.innerHTML =
+        '<svg id="fallbackSvg" viewBox="0 0 ' + FB.w + " " + FB.h + '" style="display:block;width:100%;height:600px;background:#0d1117" role="img" aria-label="Carte schématique de Metz.">' +
+        '<g stroke="#1c2431" stroke-width="7" fill="none" stroke-linecap="round">' +
+        '<path d="M120 640 L240 430 L430 390 L470 250 L620 215 L760 95 L900 55 L1150 80"/>' +
+        '<path d="M430 640 L445 470 L470 250 L455 60 L520 -40"/>' +
+        '<path d="M-40 300 L300 335 L620 215 L900 200 L1210 240"/>' +
+        '<path d="M760 640 L720 430 L760 95"/>' +
+        '<path d="M150 -30 L250 200 L240 430"/>' +
+        "</g>" +
+        '<path d="M600 640 C585 520 640 450 600 360 C565 285 640 210 605 120 C585 70 625 20 610 -40" fill="none" stroke="#20507e" stroke-width="30" opacity=".55" stroke-linecap="round"/>' +
+        '<path d="M1210 470 C1010 440 860 420 720 400 C670 392 630 380 600 360" fill="none" stroke="#20507e" stroke-width="16" opacity=".5" stroke-linecap="round"/>' +
+        '<text x="635" y="300" fill="#4d7fb3" font-size="21" font-style="italic" transform="rotate(84 635 300)">la Moselle</text>' +
+        '<text x="850" y="410" fill="#4d7fb3" font-size="18" font-style="italic">La Seille</text>' +
+        '<text x="700" y="530" fill="#3d4757" font-size="25" font-weight="600">Le Sablon</text>' +
+        '<text x="680" y="140" fill="#3d4757" font-size="25" font-weight="600">Metz-Centre</text>' +
+        '<g id="fbDynamic"></g></svg>';
+      document.getElementById("fallbackSvg").addEventListener("click", function (event) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width * FB.w;
+        const y = (event.clientY - rect.top) / rect.height * FB.h;
+        const lng = FB.lngMin + x / FB.w * (FB.lngMax - FB.lngMin);
+        const lat = FB.latMax - y / FB.h * (FB.latMax - FB.latMin);
+        showClickedCoords(lat, lng);
+      });
+      renderFallbackLayers();
+    }
+    function renderFallbackLayers() {
+      if (!fallbackMode) return;
+      const g = document.getElementById("fbDynamic");
+      if (!g) return;
+      let html = "";
+      state.participants.forEach(function (person) {
+        const dimmed = selectedParticipantId !== null && selectedParticipantId !== person.id;
+        if (person.photos.length) {
+          /* Sur la carte schématique (hors ligne), le tracé est une courbe
+             indicative — ou des segments directs si l'on a choisi ce mode :
+             le fond dessiné ne suit pas le réseau réel. */
+          const trace = modeTrace === "direct" ? pointsTrace(person) : courbeLisse(pointsTrace(person));
+          const pts = trace
+            .map(function (c) { return fbX(c[1]).toFixed(1) + "," + fbY(c[0]).toFixed(1); }).join(" ");
+          html += '<polyline points="' + pts + '" fill="none" stroke="' + person.color + '" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity="' + (dimmed ? 0.12 : 0.92) + '"/>';
+        }
+        person.photos.forEach(function (ph, i) {
+          html += '<circle cx="' + fbX(ph.lng) + '" cy="' + fbY(ph.lat) + '" r="15" fill="#12121a" stroke="' + person.color + '" stroke-width="4" opacity="' + (dimmed ? 0.3 : 1) + '"/>' +
+            '<text x="' + fbX(ph.lng) + '" y="' + (fbY(ph.lat) + 5) + '" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" opacity="' + (dimmed ? 0.3 : 1) + '">' + (i + 1) + "</text>";
+        });
+      });
+      [POINT_A, POINT_B].forEach(function (point) {
+        html += '<circle cx="' + fbX(point.lng) + '" cy="' + fbY(point.lat) + '" r="20" fill="' + (point.label === "A" ? "#5b7cfa" : "#f0566e") + '" stroke="#fff" stroke-width="3.5"/>' +
+          '<text x="' + fbX(point.lng) + '" y="' + (fbY(point.lat) + 6) + '" text-anchor="middle" fill="#fff" font-size="17" font-weight="700">' + point.label + "</text>" +
+          '<text x="' + (fbX(point.lng) + 28) + '" y="' + (fbY(point.lat) + 5) + '" fill="#e8e8ef" font-size="17" font-weight="600">' + esc(point.name) + "</text>";
+      });
+      g.innerHTML = html;
+    }
+
+    /* ================= Rendus d'interface ================= */
+    function renderParticipants() {
+      const list = document.getElementById("participants");
+      list.replaceChildren();
+      state.participants.forEach(function (person) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "participant";
+        button.setAttribute("aria-pressed", String(selectedParticipantId === person.id));
+        button.setAttribute("aria-label", person.name + ", " + person.photos.length + " photographie(s). Mettre son trajet en évidence.");
+        const avatar = document.createElement("span");
+        avatar.className = "avatar";
+        avatar.style.background = person.color;
+        avatar.textContent = initials(person.name);
+        const info = document.createElement("span");
+        info.className = "participant-info";
+        const name = document.createElement("span");
+        name.className = "participant-name";
+        name.textContent = person.name;
+        const sub = document.createElement("span");
+        sub.className = "participant-sub";
+        sub.textContent = person.photos.length === 0 ? "Aucune photo pour l’instant" : person.photos.length + (person.photos.length === 1 ? " photographie géolocalisée" : " photographies géolocalisées");
+        info.append(name, sub);
+        if (person.journeyWord) {
+          const word = document.createElement("span");
+          word.className = "participant-word";
+          word.textContent = "« " + person.journeyWord + " »";
+          info.append(word);
+        }
+        const key = document.createElement("span");
+        key.className = "color-key";
+        key.style.background = person.color;
+        key.setAttribute("aria-hidden", "true");
+        button.append(avatar, info, key);
+        button.addEventListener("click", function () {
+          selectedParticipantId = selectedParticipantId === person.id ? null : person.id;
+          renderAll();
+        });
+        list.append(button);
+      });
+      document.getElementById("participantCount").textContent = String(state.participants.length);
+      document.getElementById("clearFilter").hidden = selectedParticipantId === null;
+    }
+    function renderStats() {
+      document.getElementById("statParticipants").textContent = String(participantsEnChemin());
+      document.getElementById("statPhotos").textContent = String(state.photos.length);
+      document.getElementById("statDistance").textContent = haversineKm(POINT_A, POINT_B).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " km";
+    }
+    function renderGallery() {
+      const gallery = document.getElementById("gallery");
+      gallery.replaceChildren();
+      const visible = state.photos.filter(function (ph) {
+        return selectedParticipantId === null || ph.participantId === selectedParticipantId;
+      });
+      document.getElementById("galleryEmpty").hidden = state.photos.length > 0;
+      visible.forEach(function (ph) {
+        const author = participantById(ph.participantId);
+        const card = document.createElement("article");
+        card.className = "photo-card";
+        const img = document.createElement("img");
+        img.src = ph.src;
+        img.alt = "Photographie de " + (author ? author.name : "participant") + (ph.word ? " — " + ph.word : "");
+        img.loading = "lazy";
+        const body = document.createElement("div");
+        body.className = "photo-card-body";
+        const authorLine = document.createElement("span");
+        authorLine.className = "photo-card-author";
+        authorLine.innerHTML = '<span class="author-dot" style="background:' + (author ? author.color : "#999") + '"></span>' + esc(author ? author.name : "Participant");
+        body.append(authorLine);
+        if (ph.word) {
+          const word = document.createElement("p");
+          word.className = "photo-card-word";
+          word.textContent = "« " + ph.word + " »";
+          body.append(word);
+        }
+        if (ph.caption) {
+          const caption = document.createElement("p");
+          caption.className = "photo-card-caption";
+          caption.textContent = ph.caption;
+          body.append(caption);
+        }
+        const meta = document.createElement("p");
+        meta.className = "photo-card-meta";
+        meta.textContent = "📍 " + formatCoords(ph.lat, ph.lng) + (ph.date ? " · " + ph.date : "");
+        body.append(meta);
+        const actions = document.createElement("div");
+        actions.className = "photo-card-actions";
+        const viewBtn = document.createElement("button");
+        viewBtn.type = "button";
+        viewBtn.className = "ghost small-btn";
+        viewBtn.textContent = "🗺️ Voir sur la carte";
+        viewBtn.addEventListener("click", function () { focusPhotoOnMap(ph.id); });
+        actions.append(viewBtn);
+        body.append(actions);
+        card.append(img, body);
+        gallery.append(card);
+      });
+    }
+    function renderAll() {
+      renderParticipants();
+      renderStats();
+      renderGallery();
+      if (fallbackMode) renderFallbackLayers(); else renderLeafletLayers();
+    }
+    function focusPhotoOnMap(photoId) {
+      const ph = state.photos.find(function (p) { return p.id === photoId; });
+      if (!ph) return;
+      document.getElementById("carte").scrollIntoView({ behavior: "smooth" });
+      if (map && leafletMarkers[photoId]) {
+        setTimeout(function () {
+          map.setView([ph.lat, ph.lng], Math.max(map.getZoom(), 16), { animate: false });
+          setTimeout(function () { leafletMarkers[photoId].openPopup(); }, 80);
+        }, 450);
+      }
+    }
+
+    /* ================= Interactions ================= */
+    function wireEvents() {
+      const menu = document.querySelector(".menu-toggle");
+      const nav = document.getElementById("navigation");
+      menu.addEventListener("click", function () {
+        const open = menu.getAttribute("aria-expanded") !== "true";
+        menu.setAttribute("aria-expanded", String(open));
+        menu.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+        nav.classList.toggle("open", open);
+      });
+      nav.addEventListener("click", function (event) {
+        if (event.target.closest("a")) {
+          nav.classList.remove("open");
+          menu.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      const btnClean = document.getElementById("baseClean");
+      const btnStreets = document.getElementById("baseStreets");
+      function setBase(streets) {
+        if (!map) return;
+        if (streets) { map.removeLayer(baseCleanLayer); baseStreetsLayer.addTo(map); }
+        else { map.removeLayer(baseStreetsLayer); baseCleanLayer.addTo(map); }
+        btnClean.setAttribute("aria-pressed", String(!streets));
+        btnStreets.setAttribute("aria-pressed", String(streets));
+      }
+      btnClean.addEventListener("click", function () { setBase(false); });
+      btnStreets.addEventListener("click", function () { setBase(true); });
+
+      /* Tracé des chemins : le long des rues (par défaut) ou segments directs. */
+      const btnRouteRues = document.getElementById("routeStreets");
+      const btnRouteDirect = document.getElementById("routeDirect");
+      function setModeTrace(mode) {
+        if (modeTrace === mode) return;
+        modeTrace = mode;
+        btnRouteRues.setAttribute("aria-pressed", String(mode === "rues"));
+        btnRouteDirect.setAttribute("aria-pressed", String(mode === "direct"));
+        state.participants.forEach(function (person) {
+          const ligne = leafletPolylines[person.id];
+          if (ligne) appliquerGeometrie(ligne, person);
+        });
+        if (fallbackMode) {
+          renderFallbackLayers();
+          signalerRoutage(mode === "rues" ? "Carte hors ligne : tracés indicatifs (courbes) — itinéraires réels avec une connexion" : "Tracés directs A → photos → B, à vol d’oiseau");
+        } else if (mode === "rues") {
+          chargerTracesRues();
+        } else {
+          signalerRoutage("Tracés directs A → photos → B, à vol d’oiseau");
+        }
+      }
+      btnRouteRues.addEventListener("click", function () { setModeTrace("rues"); });
+      btnRouteDirect.addEventListener("click", function () { setModeTrace("direct"); });
+      document.getElementById("recenter").addEventListener("click", function () {
+        if (map) fitToRoute();
+        else document.getElementById("carte").scrollIntoView({ behavior: "smooth" });
+      });
+      document.getElementById("clearFilter").addEventListener("click", function () {
+        selectedParticipantId = null;
+        renderAll();
+      });
+    }
+
+    /* ================= Démarrage ================= */
+    (function init() {
+      document.getElementById("year").textContent = new Date().getFullYear();
+      chargerCacheItineraires();
+      wireEvents();
+      if (window.L) {
+        try { initLeaflet(); } catch (_) { initFallback(); }
+      } else {
+        initFallback();
+      }
+      renderAll();
+      chargerTracesRues(); // remplace les courbes provisoires par les vrais itinéraires piétons
+    })();
+  </script>
+</body>
+</html>
