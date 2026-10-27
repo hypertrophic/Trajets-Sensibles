@@ -77,9 +77,11 @@
 
     /* ---------- Espace carte + barre latérale ---------- */
     .workspace { display: grid; grid-template-columns: minmax(0,1fr) 350px; gap: 20px; align-items: start; }
+    .workspace > * { min-width: 0; }
     .map-card { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #0b0b11; min-width: 0; }
-    .map-stage { position: relative; }
+    .map-stage { position: relative; min-width: 0; }
     #map { height: 600px; width: 100%; background: #101018; z-index: 0; font-family: Inter, sans-serif; }
+    .leaflet-container { max-width: 100%; }
     .map-tag { position: absolute; top: 14px; left: 54px; z-index: 600; padding: 9px 12px; border-radius: 10px; background: rgba(10,10,15,.88); border: 1px solid var(--line); font-size: .73rem; color: #b9b9c4; pointer-events: none; }
     .map-tag strong { color: #fff; }
     .basemap-switch { position: absolute; top: 14px; right: 14px; z-index: 600; display: flex; gap: 6px; background: rgba(10,10,15,.88); border: 1px solid var(--line); border-radius: 11px; padding: 5px; }
@@ -91,11 +93,13 @@
     .recenter-btn { position: absolute; right: 14px; bottom: 26px; z-index: 600; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; background: rgba(10,10,15,.88); color: #d6d6df; font-size: .76rem; font-weight: 600; }
     .recenter-btn:hover { background: rgba(255,255,255,.1); }
     .map-legend { display: flex; align-items: center; gap: 14px 22px; padding: 14px 22px; background: #0a0a10; border-top: 1px solid var(--line); font-size: .8rem; color: #9999a5; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 9px; }
+    .legend-item { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .legend-item > span { min-width: 0; }
     .legend-badge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; font-weight: 700; font-size: .7rem; color: #fff; flex: none; }
     .legend-photo { width: 20px; height: 20px; border-radius: 50%; border: 3px solid #a78bfa; background: #2a2440; flex: none; }
     .legend-line { width: 26px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,#a78bfa,#34d399); flex: none; }
     .clicked-coords { color: #c9bdf5; font-weight: 600; }
+    .map-filters { display: none; }
     .map-fallback-note { padding: 10px 22px; background: #17131f; color: #c9bdf5; font-size: .78rem; line-height: 1.5; border-top: 1px solid var(--line); }
 
     /* Marqueurs personnalisés Leaflet */
@@ -103,6 +107,8 @@
     .ab-a { background: var(--a-color); }
     .ab-b { background: var(--b-color); }
     .photo-marker { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; box-shadow: 0 6px 18px rgba(0,0,0,.55); background: #222; }
+    .photo-marker.is-small { width: 32px; height: 32px; border-width: 2px; }
+    .ab-marker.is-small { width: 30px; height: 30px; border-width: 2.5px; font-size: .82rem; }
     .photo-marker img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .leaflet-popup-content-wrapper { background: #12121a; color: #e4e4eb; border: 1px solid rgba(255,255,255,.14); border-radius: 14px; }
     .leaflet-popup-tip { background: #12121a; }
@@ -171,28 +177,158 @@
     @media (max-width: 1080px) {
       .workspace { grid-template-columns: 1fr; }
       #map { height: 540px; }
+      .map-card { border-radius: 16px; }
     }
+
+    /* ══════════════════ VERSION MOBILE / TABLETTE ══════════════════ */
     @media (max-width: 760px) {
-      .navbar { height: 68px; padding: 0 18px; }
-      .logo { font-size: 1.35rem; }
-      .menu-toggle { display: block; }
-      .nav-links { display: none; position: absolute; left: 12px; right: 12px; top: 74px; padding: 12px; background: #111117; border: 1px solid var(--line); border-radius: 14px; flex-direction: column; align-items: stretch; gap: 0; z-index: 3000; }
+      /* --- Navigation --- */
+      .navbar { height: 62px; padding: 0 16px; }
+      .logo { font-size: 1.3rem; gap: 8px; }
+      .logo svg { width: 28px; height: 28px; }
+      .menu-toggle { display: grid; place-items: center; width: 42px; height: 42px; }
+      .nav-links { display: none; position: absolute; left: 12px; right: 12px; top: 68px; padding: 8px; background: #111117; border: 1px solid var(--line); border-radius: 14px; flex-direction: column; align-items: stretch; gap: 0; z-index: 3000; box-shadow: 0 18px 40px rgba(0,0,0,.55); }
       .nav-links.open { display: flex; }
-      .nav-links a { display: block; padding: 13px; }
-      .hero { padding: 56px 20px 34px; }
-      .hero p { font-size: .95rem; }
-      .stat-number { font-size: 1.55rem; }
-      .section-wrap { width: calc(100% - 32px); }
-      .route-strip { grid-template-columns: 1fr; }
-      .route-arrow { transform: rotate(90deg); padding: 2px 0; }
+      .nav-links a { display: block; padding: 14px 12px; font-size: 1rem; border-radius: 10px; }
+      .nav-links a:active { background: rgba(255,255,255,.06); }
+
+      /* --- En-tête --- */
+      .hero { padding: 44px 18px 30px; }
+      h1 { font-size: clamp(1.95rem, 8.4vw, 2.6rem); letter-spacing: -.03em; margin-bottom: 16px; }
+      .hero p { font-size: .93rem; line-height: 1.7; }
+      .stats { gap: 18px 26px; margin-top: 30px; }
+      .stat-number { font-size: 1.5rem; }
+      .stat-label { font-size: .72rem; margin-top: 6px; max-width: 130px; }
+
+      /* --- Bandeau A → B --- */
+      .section-wrap { width: calc(100% - 28px); }
+      .route-strip { grid-template-columns: 1fr; gap: 10px; margin: 10px auto 18px; }
+      .route-point { padding: 14px 15px; gap: 12px; border-radius: 14px; }
+      .route-point strong { font-size: .93rem; }
+      .route-point > div > span { font-size: .78rem; }
+      .route-arrow { transform: rotate(90deg); padding: 0; font-size: 1.2rem; }
       .route-arrow small { display: none; }
-      #map { height: 450px; }
-      .map-tag { left: 48px; top: 10px; font-size: .68rem; }
-      .basemap-switch { top: auto; bottom: 64px; right: 10px; }
-      .route-switch { top: auto; bottom: 158px; right: 10px; }
-      .recenter-btn { bottom: 112px; right: 10px; }
-      .features-grid { grid-template-columns: 1fr; gap: 14px; }
-      .feature { min-height: 0; padding: 28px; }
+
+      /* --- Carte --- */
+      #map, #mapFallback svg { height: max(58vh, 400px) !important; max-height: 520px; }
+      .map-card { border-radius: 14px; }
+      .map-tag { display: none; }
+      .basemap-switch, .route-switch { top: 10px; bottom: auto; padding: 4px; border-radius: 10px; gap: 4px; }
+      .basemap-switch { left: 10px; right: auto; }
+      .route-switch { right: 10px; left: auto; }
+      .basemap-switch button, .route-switch button { padding: 8px 10px; font-size: .7rem; min-height: 36px; }
+      .recenter-btn { right: 10px; bottom: 12px; padding: 9px 12px; font-size: .72rem; min-height: 38px; }
+      .map-legend { padding: 12px 15px; gap: 10px 16px; font-size: .74rem; }
+      .legend-badge { width: 21px; height: 21px; font-size: .66rem; }
+      .legend-photo { width: 18px; height: 18px; border-width: 2.5px; }
+      .legend-line { width: 20px; }
+      .legend-tail { display: inline; }
+      .map-fallback-note { padding: 10px 15px; font-size: .74rem; }
+      /* les boutons +/− de Leaflet passent en bas à gauche : en haut ils
+         seraient recouverts par les deux sélecteurs */
+      .leaflet-top.leaflet-left { top: auto; bottom: 12px; left: 10px; }
+      .leaflet-control-zoom { margin: 0 !important; border: 1px solid var(--line) !important; border-radius: 10px !important; overflow: hidden; box-shadow: none !important; }
+      .leaflet-control-zoom a { width: 34px !important; height: 34px !important; line-height: 32px !important; font-size: 17px !important; background: rgba(10,10,15,.9) !important; color: #d6d6df !important; border-color: var(--line) !important; }
+      .leaflet-control-zoom a:hover { background: rgba(255,255,255,.12) !important; }
+      .leaflet-control-attribution { font-size: .55rem !important; padding: 2px 5px !important; max-width: 62%; line-height: 1.35; }
+      .recenter-btn { bottom: 34px; }
+      /* info-bulles Leaflet compactes : elles doivent tenir au-dessus du
+         bandeau de navigation collant, sans être rognées */
+      .leaflet-popup-content { width: min(246px, 72vw) !important; }
+      .popup-photo img { height: 104px; }
+      .popup-body { padding: 10px 12px 11px; }
+      .popup-word { font-size: .95rem; margin-bottom: 4px; }
+      .popup-caption { font-size: .78rem; line-height: 1.45; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .popup-meta { font-size: .68rem; line-height: 1.5; }
+      .popup-author { font-size: .74rem; margin-bottom: 4px; }
+
+      /* --- Filtres rapides au-dessus de la carte : évite de descendre
+             jusqu'au panneau « Participants » pour isoler un trajet --- */
+      .map-filters {
+        display: flex; gap: 8px; overflow-x: auto; padding: 11px 12px;
+        background: #0a0a10; border-top: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .map-filters::-webkit-scrollbar { display: none; }
+      .chip {
+        display: inline-flex; align-items: center; gap: 7px; flex: none;
+        padding: 7px 12px 7px 8px; border-radius: 999px; min-height: 38px;
+        border: 1px solid var(--line); background: rgba(255,255,255,.04);
+        color: #c9c9d3; font-size: .78rem; font-weight: 600; white-space: nowrap;
+      }
+      .chip .chip-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+      .chip .chip-count { color: #8a8a95; font-weight: 500; }
+      .chip[aria-pressed="true"] { background: rgba(255,255,255,.13); color: #fff; border-color: rgba(255,255,255,.32); }
+      .chip-all { color: #a9a9b4; }
+
+      /* --- Panneau participants --- */
+      .panel { padding: 16px; border-radius: 16px; }
+      .participant { padding: 11px 8px; }
+      .avatar { width: 34px; height: 34px; font-size: .68rem; }
+      .participant-name { font-size: .88rem; }
+      .participant-sub, .participant-word { font-size: .74rem; }
+      .panel-hint { font-size: .72rem; }
+      .ghost { min-height: 44px; }
+
+      /* --- Galerie : deux colonnes compactes --- */
+      .gallery-section { padding: 62px 0 10px; }
+      .section-intro { margin-bottom: 26px; }
+      .section-intro h2 { font-size: clamp(1.6rem, 6.4vw, 2rem); }
+      .section-intro p { font-size: .9rem; line-height: 1.6; }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+      .photo-card { border-radius: 13px; }
+      .photo-card img { height: 132px; }
+      .photo-card-body { padding: 11px 12px 12px; gap: 5px; }
+      .photo-card-word { font-size: .86rem; }
+      .photo-card-caption { font-size: .76rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .photo-card-meta { font-size: .68rem; }
+      .photo-card-author { font-size: .72rem; }
+      .photo-card-actions { gap: 6px; padding-top: 6px; }
+      .photo-card-actions .ghost { font-size: .72rem; padding: 9px 8px; min-height: 40px; }
+      .empty-state { padding: 38px 20px; font-size: .88rem; }
+
+      /* --- Fonctionnalités --- */
+      .features { padding: 66px 0 56px; }
+      .features-grid { grid-template-columns: 1fr; gap: 12px; }
+      .feature { min-height: 0; padding: 22px; border-radius: 16px; }
+      .feature-icon { width: 48px; height: 48px; font-size: 22px; border-radius: 13px; margin-bottom: 14px; }
+      .feature h3 { font-size: 1.02rem; margin-bottom: 8px; }
+      .feature p { font-size: .88rem; line-height: 1.6; }
+
+      /* --- Pied de page --- */
+      footer { padding: 26px 18px; font-size: .75rem; line-height: 1.85; }
+      footer a.credit-link { display: inline-block; padding: 6px 2px; }
+    }
+
+    /* ══════════════════ TRÈS PETITS ÉCRANS (≤ 344 px) ══════════════════ */
+    @media (max-width: 344px) {
+      .hero { padding: 36px 14px 26px; }
+      h1 { font-size: clamp(1.75rem, 8.6vw, 2.1rem); }
+      .hero p { font-size: .89rem; }
+      .stats { gap: 14px 18px; }
+      .stat-number { font-size: 1.35rem; }
+      .stat-label { font-size: .68rem; max-width: 112px; }
+      .section-wrap { width: calc(100% - 22px); }
+      .basemap-switch button, .route-switch button { padding: 7px 8px; font-size: .66rem; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
+      .photo-card img { height: 158px; }
+      .photo-card-caption { -webkit-line-clamp: 4; }
+      .leaflet-popup-content { width: min(240px, 78vw) !important; }
+      .panel { padding: 14px; }
+      footer { font-size: .72rem; }
+    }
+
+    /* Mobile en paysage : la carte ne doit pas manger tout l'écran */
+    @media (max-width: 900px) and (orientation: landscape) {
+      #map, #mapFallback svg { height: max(340px, 88vh) !important; max-height: none; }
+    }
+
+    /* Appareils tactiles : pas de survol fantôme, cibles confortables */
+    @media (hover: none) {
+      .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
+      .participant:hover { background: transparent; border-color: transparent; }
+      .participant[aria-pressed="true"] { background: rgba(255,255,255,.05); border-color: var(--line); }
+      .basemap-switch button, .route-switch button { min-height: 36px; }
     }
     @media (min-width: 761px) and (max-width: 1080px) { .features-grid { grid-template-columns: repeat(2,1fr); } }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
@@ -270,11 +406,12 @@
             <button class="recenter-btn" id="recenter" type="button">◎ Recentrer A → B</button>
           </div>
           <div class="map-fallback-note" id="fallbackNote" hidden>⚠️ La carte en ligne n’a pas pu se charger (aperçu sans connexion). Un fond schématique de Metz, France est affiché à la place : les points A et B et les photographies restent positionnés selon leurs vraies coordonnées. Ouvrez la page avec une connexion internet pour voir le plan réel de Metz, France.</div>
+          <div class="map-filters" id="mapFilters" role="group" aria-label="Filtrer les trajets par participant"></div>
           <div class="map-legend">
             <span class="legend-item"><span class="legend-badge badge-a">A</span> La République — départ</span>
             <span class="legend-item"><span class="legend-badge badge-b">B</span> Cathédrale Saint-Étienne — arrivée</span>
             <span class="legend-item"><span class="legend-photo" aria-hidden="true"></span> Photographie géolocalisée</span>
-            <span class="legend-item"><span class="legend-line" aria-hidden="true"></span> Chemin d’un participant — itinéraire piéton le long des rues</span>
+            <span class="legend-item"><span class="legend-line" aria-hidden="true"></span> <span>Chemin d’un participant<span class="legend-tail"> — itinéraire piéton le long des rues</span></span></span>
             <span class="legend-item route-status" id="routeStatus" hidden></span>
             <span class="legend-item clicked-coords" id="clickedCoords" hidden></span>
           </div>
@@ -418,6 +555,12 @@
     }
     function formatCoords(lat, lng) { return Number(lat).toFixed(5) + ", " + Number(lng).toFixed(5); }
     function participantById(id) { return state.participants.find(function (p) { return p.id === id; }); }
+    /* Sur téléphone, des marqueurs de 42 px se chevauchent et masquent les
+       chemins : on les réduit (et on ajuste les ancrages en conséquence). */
+    function petitEcran() { return window.innerWidth <= 760; }
+    function tailleIcones() {
+      return petitEcran() ? { photo: 32, ab: 30 } : { photo: 42, ab: 36 };
+    }
     function participantsEnChemin() { return state.participants.filter(function (p) { return p.photos.length > 0; }).length; }
 
     let selectedParticipantId = null;
@@ -647,9 +790,10 @@
       layersGroup.clearLayers();
       Object.keys(leafletMarkers).forEach(function (k) { delete leafletMarkers[k]; });
       Object.keys(leafletPolylines).forEach(function (k) { delete leafletPolylines[k]; });
+      const IC = tailleIcones();
       [POINT_A, POINT_B].forEach(function (point) {
         const marker = L.marker([point.lat, point.lng], {
-          icon: L.divIcon({ className: "", html: '<div class="ab-marker ' + (point.label === "A" ? "ab-a" : "ab-b") + '">' + point.label + "</div>", iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -18] }),
+          icon: L.divIcon({ className: "", html: '<div class="ab-marker' + (IC.ab === 30 ? " is-small" : "") + " " + (point.label === "A" ? "ab-a" : "ab-b") + '">' + point.label + "</div>", iconSize: [IC.ab, IC.ab], iconAnchor: [IC.ab / 2, IC.ab / 2], popupAnchor: [0, -IC.ab / 2] }),
           zIndexOffset: 1000
         }).bindPopup(popupAB(point, point.label === "A" ? "départ commun" : "arrivée commune"));
         layersGroup.addLayer(marker);
@@ -675,8 +819,8 @@
         }
         person.photos.forEach(function (ph) {
           const marker = L.marker([ph.lat, ph.lng], {
-            icon: L.divIcon({ className: "", html: '<div class="photo-marker" style="border-color:' + person.color + (dimmed ? ";opacity:.25" : "") + '"><img src="' + esc(ph.src) + '" alt=""></div>', iconSize: [42, 42], iconAnchor: [21, 21], popupAnchor: [0, -21] })
-          }).bindPopup(popupPhoto(ph), { maxWidth: 290, autoPanPadding: [40, 70] });
+            icon: L.divIcon({ className: "", html: '<div class="photo-marker' + (IC.photo === 32 ? " is-small" : "") + '" style="border-color:' + person.color + (dimmed ? ";opacity:.25" : "") + '"><img src="' + esc(ph.src) + '" alt=""></div>', iconSize: [IC.photo, IC.photo], iconAnchor: [IC.photo / 2, IC.photo / 2], popupAnchor: [0, -IC.photo / 2] })
+          }).bindPopup(popupPhoto(ph), { maxWidth: 290, autoPanPadding: petitEcran() ? [24, 84] : [40, 70] });
           leafletMarkers[ph.id] = marker;
           layersGroup.addLayer(marker);
         });
@@ -750,6 +894,45 @@
     }
 
     /* ================= Rendus d'interface ================= */
+    /* Filtres compacts affichés au-dessus de la carte sur téléphone
+       (masqués en CSS au-delà de 760 px). */
+    function renderChips() {
+      const barre = document.getElementById("mapFilters");
+      if (!barre) return;
+      barre.replaceChildren();
+      const tous = document.createElement("button");
+      tous.type = "button";
+      tous.className = "chip chip-all";
+      tous.setAttribute("aria-pressed", String(selectedParticipantId === null));
+      tous.textContent = "Tous les trajets";
+      tous.addEventListener("click", function () {
+        selectedParticipantId = null;
+        renderAll();
+      });
+      barre.append(tous);
+      state.participants.forEach(function (person) {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.setAttribute("aria-pressed", String(selectedParticipantId === person.id));
+        chip.setAttribute("aria-label", person.name + " — " + person.photos.length + " photographie(s)");
+        const point = document.createElement("span");
+        point.className = "chip-dot";
+        point.style.background = person.color;
+        const nom = document.createElement("span");
+        nom.textContent = person.name;
+        const compte = document.createElement("span");
+        compte.className = "chip-count";
+        compte.textContent = person.photos.length;
+        chip.append(point, nom, compte);
+        chip.addEventListener("click", function () {
+          selectedParticipantId = selectedParticipantId === person.id ? null : person.id;
+          renderAll();
+        });
+        barre.append(chip);
+      });
+    }
+
     function renderParticipants() {
       const list = document.getElementById("participants");
       list.replaceChildren();
@@ -789,6 +972,7 @@
         });
         list.append(button);
       });
+      renderChips();
       document.getElementById("participantCount").textContent = String(state.participants.length);
       document.getElementById("clearFilter").hidden = selectedParticipantId === null;
     }
@@ -924,6 +1108,17 @@
       document.getElementById("clearFilter").addEventListener("click", function () {
         selectedParticipantId = null;
         renderAll();
+      });
+
+      /* Rotation du téléphone / redimensionnement : on redessine avec la bonne
+         taille de marqueurs (et on invalide la taille de la carte Leaflet). */
+      let dernierPetit = petitEcran(), minuteurRedim = null;
+      window.addEventListener("resize", function () {
+        clearTimeout(minuteurRedim);
+        minuteurRedim = setTimeout(function () {
+          if (map) map.invalidateSize();
+          if (petitEcran() !== dernierPetit) { dernierPetit = petitEcran(); renderAll(); }
+        }, 180);
       });
     }
 
