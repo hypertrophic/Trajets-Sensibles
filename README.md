@@ -95,7 +95,7 @@ date. Ce sont les images et les chemins qui parlent.
 - **Les tracés suivent le réseau piéton réel** entre les points de passage : les chemins
   tournent aux angles et empruntent rues, passages et escaliers.
 - **Cliquer n'importe où sur la carte** affiche sous celle-ci les coordonnées du point cliqué.
-- La **galerie « Les regards du trajet »**, sous la carte, est groupée par participant : chaque
+- La **galerie**, sous la carte, est groupée par participant : chaque
   carte se déplie pour révéler les photographies du trajet, et le bouton *Voir sur la carte*
   recentre la carte sur l'une d'elles.
 - Des **compteurs** (participants en chemin, photographies géolocalisées, distance A → B)

@@ -398,7 +398,7 @@
       <nav aria-label="Navigation principale">
         <ul class="nav-links" id="navigation">
           <li><a href="#carte">Carte</a></li>
-          <li><a href="#photographies">Photographies</a></li>
+          <li><a href="#photographies">Galerie</a></li>
           <li><a href="#fonctionnalites">Fonctionnalités</a></li>
         </ul>
       </nav>
@@ -473,7 +473,7 @@
             <div class="panel-heading"><h2>Participants</h2><small id="participantCount" title="Trajets enregistrés">0</small></div>
             <div id="participants"></div>
             <button class="ghost clear-filter" id="clearFilter" type="button" hidden>Voir tous les trajets</button>
-            <p class="panel-hint">Sélectionnez un participant pour mettre son chemin et ses photographies en évidence. Cliquez à nouveau pour tout réafficher.</p>
+            <p class="panel-hint">Sélectionnez un participant pour découvrir son parcours et ses photographies. Cliquez à nouveau pour afficher l’ensemble des parcours.</p>
           </div>
         </aside>
       </div>
@@ -481,8 +481,8 @@
 
     <section class="gallery-section section-wrap" id="photographies">
       <div class="section-intro">
-        <h2>Les regards du trajet</h2>
-        <p>«&nbsp;Photographier ce qui fait s’arrêter et regarder autrement.&nbsp;» Chaque participant rassemble ici les photographies de son trajet, géolocalisées entre la Place de la République et la Cathédrale Saint-Étienne. Ouvrez une carte pour les parcourir.</p>
+        <h2>Galerie</h2>
+        <p>Retrouvez les photographies prises par les participants entre la Place de la République et la Cathédrale Saint-Étienne. Chaque image témoigne d’un regard singulier sur la ville.</p>
       </div>
       <div class="gallery-groups" id="gallery"></div>
       <span class="gallery-total" id="galleryTotal"></span>
@@ -1027,7 +1027,7 @@
       document.getElementById("statPhotos").textContent = String(state.photos.length);
       document.getElementById("statDistance").textContent = haversineKm(POINT_A, POINT_B).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " km";
     }
-    /* ================= Galerie « Les regards du trajet » =================
+    /* ================= Galerie des photographies =================
        Les photographies sont regroupées PAR PARTICIPANT : une carte par
        personne, que l'on déplie pour voir ses images (position, date).
        Aucune photo n'a de titre ni de description : elles sont seulement
