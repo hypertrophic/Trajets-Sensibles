@@ -49,7 +49,6 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 1",
       couleur: "#a78bfa",
-      motDuTrajet: "",
       photos: [
         // ← Ajoutez ici les photographies du Participant 1, par exemple :
         // { fichier: "assets/participant-1/photo1.jpg", lat: 49.105800, lng: 6.172200, date: "" },
@@ -60,7 +59,6 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 2",
       couleur: "#34d399",
-      motDuTrajet: "",
       photos: [
         // ← Ajoutez ici les photographies du Participant 2 (dossier : assets/participant-2/)
       ]
@@ -69,7 +67,6 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 3",
       couleur: "#67a4fa",
-      motDuTrajet: "",
       photos: [
         // ← Ajoutez ici les photographies du Participant 3 (dossier : assets/participant-3/)
       ]
@@ -78,7 +75,6 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 4",
       couleur: "#f178aa",
-      motDuTrajet: "",
       photos: [
         // ← Ajoutez ici les photographies du Participant 4 (dossier : assets/participant-4/)
       ]
@@ -87,7 +83,6 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 5",
       couleur: "#e8c547",
-      motDuTrajet: "",
       photos: [
         // ← Ajoutez ici les photographies du Participant 5 (dossier : assets/participant-5/)
       ]

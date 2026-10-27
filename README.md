@@ -1,7 +1,7 @@
 # TrajetsSensibles
 
 **Cartographie sensible collective — Metz, France**
-*Un même trajet, des regards différents.*
+*Metz, au détour des regards.*
 
 ---
 
@@ -58,26 +58,28 @@ traces d'une expérience vécue et des supports de mémoire.
 
 | | |
 |---|---|
-| **Point A — départ** | La République, 60 Rue de la Chapelle, 57000 Metz — 49.09920, 6.17332 |
+| **Point A — départ** | Place de la République, 5 Av. Robert Schuman, 57000 Metz — 49.11501, 6.17262 |
 | **Point B — arrivée** | Cathédrale Saint-Étienne, 2 Pl. de Chambre, 57000 Metz — 49.12028, 6.17579 |
-| **Distance** | ≈ 2,4 km à vol d'oiseau |
+| **Distance** | ≈ 0,6 km à vol d'oiseau |
 
 Entre A et B, **l'itinéraire est libre**. Les photographies prises pendant la marche sont
 placées sur la carte à l'endroit exact de leur prise de vue ; reliées dans l'ordre du trajet,
-elles dessinent le chemin vécu de chaque participant.
+elles dessinent le chemin vécu de chaque participant. Un même parcours, des détours et des
+arrêts différents : c'est là que se révèlent les regards singuliers.
 
 ## Le protocole
 
-1. **Partir ensemble du point A** — La République, 60 Rue de la Chapelle.
+1. **Partir ensemble du point A** — la Place de la République, 5 avenue Robert Schuman.
 2. **Rejoindre le point B** — la Cathédrale Saint-Étienne, en choisissant librement son chemin.
 3. **Photographier librement pendant le trajet**, avec une seule consigne : photographier ce
    qui fait **s'arrêter et regarder autrement** — une couleur, une ombre, une fissure, une
    présence, un sentiment de malaise, un objet abandonné, un détail qui rappelle un souvenir.
 4. **À l'arrivée**, partager **un mot, un souvenir ou une impression** de l'ensemble du trajet.
 
-Les photographies ne portent **ni titre ni description** : elles sont simplement numérotées
-dans l'ordre du trajet (« Photographie 1 », « Photographie 2 »…) et regroupées sous le nom de
-leur auteur. Le seul texte libre est le **mot du trajet**, partagé à l'arrivée.
+Le site ne publie **aucun commentaire** : les photographies n'ont ni titre, ni description, ni
+légende. Elles sont simplement numérotées dans l'ordre du trajet (« Photographie 1 »,
+« Photographie 2 »…) et regroupées sous le nom de leur auteur, avec leurs coordonnées et leur
+date. Ce sont les images et les chemins qui parlent.
 
 ## Comment lire la carte
 
@@ -88,9 +90,10 @@ leur auteur. Le seul texte libre est le **mot du trajet**, partagé à l'arrivé
 - **Cliquer sur une vignette photo** : l'image en grand, son numéro, ses coordonnées et sa date.
 - **Fond de carte** (en haut à droite de la carte) : *Carte épurée* par défaut — un fond sombre
   et minimal, dans l'esprit de la cartographie sensible, où seuls les chemins vécus et les
-  photographies comptent — ou *Noms de rues*, le plan IGN complet, pratique pour se repérer.
-- **Tracé des chemins** : *Rues* suit l'itinéraire piéton réel entre les points de passage ;
-  *Direct* relie simplement les points à vol d'oiseau, pour comparer.
+  photographies comptent — ou *Carte détaillée*, le plan IGN avec les noms de rues, pratique
+  pour se repérer et relever les coordonnées des prises de vue.
+- **Les tracés suivent le réseau piéton réel** entre les points de passage : les chemins
+  tournent aux angles et empruntent rues, passages et escaliers.
 - **Cliquer n'importe où sur la carte** affiche sous celle-ci les coordonnées du point cliqué.
 - La **galerie « Les regards du trajet »**, sous la carte, est groupée par participant : chaque
   carte se déplie pour révéler les photographies du trajet, et le bouton *Voir sur la carte*
@@ -103,8 +106,8 @@ leur auteur. Le seul texte libre est le **mot du trajet**, partagé à l'arrivé
 - Le tracé affiché **relie les photographies dans l'ordre du trajet**, en suivant le réseau
   piéton réel entre les points déclarés. Il ne prétend pas reconstituer un enregistrement GPS :
   c'est l'itinéraire le plus court entre les points de passage, non le chemin exactement
-  emprunté — d'où la possibilité de revenir au mode *Direct*, plus brut mais plus fidèle à la
-  seule position des images.
+  emprunté. Le tracé suggère donc le chemin vécu sans le certifier — ce qui reste cohérent avec
+  la dimension sensible et mémorielle du projet.
 - Les coordonnées de chaque photographie sont **relevées manuellement** par les participants.
 - La carte conserve la géographie réelle de Metz, mais privilégie une présentation **épurée** :
   ce qui y ressort, ce sont avant tout les chemins réellement parcourus et les photographies
@@ -165,6 +168,8 @@ Atelier de cartographie sensible collective, Metz, France.
 - **Polices** : Inter et Space Grotesk (SIL Open Font License)
 - **Photographies** : © leurs auteurs respectifs ; les images actuellement en ligne sont des
   visuels de démonstration générés pour le site et ne représentent aucune prise de vue réelle.
+- **Participants de démonstration** : Chaimae SEBTI et Driss JABRI (noms réels, photographies
+  de démonstration) ; les emplacements 3 à 5 restent à compléter.
 
 ## Copyright
 

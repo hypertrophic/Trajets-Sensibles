@@ -22,11 +22,11 @@
    └──────────────────────────────────────────────────────────────────────┘
 
    1) LES PARTICIPANTS
-      Remplacez « Participant 1 », « Participant 2 », etc. par les prénoms
-      (ou pseudonymes) réels. Vous pouvez aussi changer la couleur et,
-      à l'arrivée, écrire le « motDuTrajet » de chacun entre guillemets :
-      c'est le mot / souvenir partagé à l'arrivée, le seul texte libre du
-      site avec la date des photographies.
+      Remplacez les noms par les prénoms (ou pseudonymes) réels des
+      participants et, si vous le souhaitez, leur couleur de trajet.
+      Le site n'affiche aucun commentaire : ni titre, ni description, ni
+      mot d'arrivée — seulement le nom, le nombre de photographies et la
+      date de chaque image.
 
    2) LES PHOTOGRAPHIES (assets)
       a. Copiez le fichier image dans le dossier du participant, par ex. :
@@ -52,7 +52,7 @@
 
    EXEMPLE D'UNE LIGNE PHOTO COMPLÈTE (à copier-coller puis adapter) :
 
-      { fichier: "assets/participant-1/fissure.jpg", lat: 49.110250, lng: 6.174750, date: "12 mai 2026" },
+      { fichier: "assets/participant-1/fissure.jpg", lat: 49.115250, lng: 6.174750, date: "12 mai 2026" },
 
    ⚠️ N'oubliez pas la VIRGULE à la fin de chaque ligne (sauf, si vous
       préférez, la toute dernière), et gardez les guillemets autour des
@@ -65,28 +65,26 @@ window.DONNEES_ATELIER = {
     /* ─────────────────────────── PARTICIPANT 1 ─────────────────────────
        Trajet d'exemple : par les rues à l'ouest de l'axe principal. */
     {
-      nom: "Participant 1",
+      nom: "Chaimae SEBTI",
       couleur: "#a78bfa",
-      motDuTrajet: "Le trottoir se souvient de tous les pas.",
       photos: [
-        { fichier: "assets/participant-1/fissure.jpg", lat: 49.101913, lng: 6.172559, date: "10 octobre 2026" },
-        { fichier: "assets/participant-1/vitrine.jpg", lat: 49.105102, lng: 6.171869, date: "10 octobre 2026" },
-        { fichier: "assets/participant-1/ombre.jpg", lat: 49.108499, lng: 6.173902, date: "10 octobre 2026" },
-        { fichier: "assets/participant-1/grille.jpg", lat: 49.113097, lng: 6.175249, date: "10 octobre 2026" }
+        { fichier: "assets/participant-1/fissure.jpg", lat: 49.115734, lng: 6.171697, date: "10 octobre 2026" },
+        { fichier: "assets/participant-1/vitrine.jpg", lat: 49.116472, lng: 6.170747, date: "10 octobre 2026" },
+        { fichier: "assets/participant-1/ombre.jpg", lat: 49.117110, lng: 6.173482, date: "10 octobre 2026" },
+        { fichier: "assets/participant-1/grille.jpg", lat: 49.118506, lng: 6.175055, date: "10 octobre 2026" }
       ]
     },
 
     /* ─────────────────────────── PARTICIPANT 2 ─────────────────────────
        Trajet d'exemple : par l'est, entre les places et les cours. */
     {
-      nom: "Participant 2",
+      nom: "Driss JABRI",
       couleur: "#34d399",
-      motDuTrajet: "Personne ne regarde les flaques, et pourtant.",
       photos: [
-        { fichier: "assets/participant-2/flaque.jpg", lat: 49.102298, lng: 6.175366, date: "10 octobre 2026" },
-        { fichier: "assets/participant-2/linge.jpg", lat: 49.106440, lng: 6.176131, date: "10 octobre 2026" },
-        { fichier: "assets/participant-2/pigeons.jpg", lat: 49.109736, lng: 6.174672, date: "10 octobre 2026" },
-        { fichier: "assets/participant-2/seuil.jpg", lat: 49.113927, lng: 6.176280, date: "10 octobre 2026" }
+        { fichier: "assets/participant-2/flaque.jpg", lat: 49.115641, lng: 6.175517, date: "10 octobre 2026" },
+        { fichier: "assets/participant-2/linge.jpg", lat: 49.116812, lng: 6.176254, date: "10 octobre 2026" },
+        { fichier: "assets/participant-2/pigeons.jpg", lat: 49.117677, lng: 6.174277, date: "10 octobre 2026" },
+        { fichier: "assets/participant-2/seuil.jpg", lat: 49.118544, lng: 6.176264, date: "10 octobre 2026" }
       ]
     },
 
@@ -95,11 +93,10 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 3",
       couleur: "#67a4fa",
-      motDuTrajet: "La ville est une lumière qui ne s'éteint jamais complètement.",
       photos: [
-        { fichier: "assets/participant-3/neon.jpg", lat: 49.104681, lng: 6.173348, date: "10 octobre 2026" },
-        { fichier: "assets/participant-3/escalier.jpg", lat: 49.108899, lng: 6.173802, date: "10 octobre 2026" },
-        { fichier: "assets/participant-3/silence.jpg", lat: 49.114917, lng: 6.174842, date: "10 octobre 2026" }
+        { fichier: "assets/participant-3/neon.jpg", lat: 49.116311, lng: 6.172585, date: "10 octobre 2026" },
+        { fichier: "assets/participant-3/escalier.jpg", lat: 49.117545, lng: 6.172992, date: "10 octobre 2026" },
+        { fichier: "assets/participant-3/silence.jpg", lat: 49.118953, lng: 6.174591, date: "10 octobre 2026" }
       ]
     },
 
@@ -108,12 +105,11 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 4",
       couleur: "#f178aa",
-      motDuTrajet: "J'ai marché lentement et tout s'est mis à parler.",
       photos: [
-        { fichier: "assets/participant-4/banc.jpg", lat: 49.100805, lng: 6.170900, date: "10 octobre 2026" },
-        { fichier: "assets/participant-4/rideau.jpg", lat: 49.105467, lng: 6.169951, date: "10 octobre 2026" },
-        { fichier: "assets/participant-4/attente.jpg", lat: 49.111000, lng: 6.171495, date: "10 octobre 2026" },
-        { fichier: "assets/participant-4/graffiti.jpg", lat: 49.115826, lng: 6.173607, date: "10 octobre 2026" }
+        { fichier: "assets/participant-4/banc.jpg", lat: 49.115488, lng: 6.169282, date: "10 octobre 2026" },
+        { fichier: "assets/participant-4/rideau.jpg", lat: 49.116525, lng: 6.168478, date: "10 octobre 2026" },
+        { fichier: "assets/participant-4/attente.jpg", lat: 49.117997, lng: 6.170322, date: "10 octobre 2026" },
+        { fichier: "assets/participant-4/graffiti.jpg", lat: 49.119215, lng: 6.173017, date: "10 octobre 2026" }
       ]
     },
 
@@ -122,11 +118,10 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 5",
       couleur: "#e8c547",
-      motDuTrajet: "Je cherchais un détail, j'en ai trouvé vingt.",
       photos: [
-        { fichier: "assets/participant-5/hasard.jpg", lat: 49.103466, lng: 6.177603, date: "10 octobre 2026" },
-        { fichier: "assets/participant-5/enseigne.jpg", lat: 49.108808, lng: 6.177790, date: "10 octobre 2026" },
-        { fichier: "assets/participant-5/pierre.jpg", lat: 49.114404, lng: 6.176904, date: "10 octobre 2026" }
+        { fichier: "assets/participant-5/hasard.jpg", lat: 49.116224, lng: 6.177800, date: "10 octobre 2026" },
+        { fichier: "assets/participant-5/enseigne.jpg", lat: 49.117383, lng: 6.178334, date: "10 octobre 2026" },
+        { fichier: "assets/participant-5/pierre.jpg", lat: 49.118844, lng: 6.177154, date: "10 octobre 2026" }
       ]
     }
 

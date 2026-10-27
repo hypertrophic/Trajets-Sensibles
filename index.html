@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050508">
-  <meta name="description" content="TrajetsSensibles — cartographie sensible collective à Metz, France : les participants relient La République à la Cathédrale Saint-Étienne en photographiant ce qui les fait s'arrêter. Chaque photo est géolocalisée sur la carte commune.">
+  <meta name="description" content="TrajetsSensibles — cartographie sensible collective à Metz, France : les participants relient la Place de la République à la Cathédrale Saint-Étienne en photographiant ce qui les fait s'arrêter. Chaque photo est géolocalisée sur la carte commune.">
   <title>TrajetsSensibles — Cartographie sensible collective · Metz, France</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,7 +96,6 @@
     .basemap-switch { position: absolute; top: 14px; right: 14px; z-index: 600; display: flex; gap: 6px; background: rgba(10,10,15,.88); border: 1px solid var(--line); border-radius: 11px; padding: 5px; }
     .basemap-switch button { border: 0; border-radius: 8px; padding: 7px 11px; background: transparent; color: #9a9aa6; font-size: .74rem; font-weight: 600; }
     .basemap-switch button[aria-pressed="true"] { background: linear-gradient(110deg,#a78bfa,#68a5fa); color: #10101a; }
-    .route-switch { top: 62px; right: 14px; }
     .route-status { color: #7f8f86; font-size: .72rem; }
     .route-status.is-warn { color: #c9bdf5; }
     .recenter-btn { position: absolute; right: 14px; bottom: 26px; z-index: 600; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; background: rgba(10,10,15,.88); color: #d6d6df; font-size: .76rem; font-weight: 600; }
@@ -145,7 +144,6 @@
     .participant-info { flex: 1; min-width: 0; }
     .participant-name { display: block; color: #efeff2; font-size: .84rem; font-weight: 600; }
     .participant-sub { display: block; color: #7e7e89; font-size: .72rem; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .participant-word { display: block; color: #c3b6f5; font-size: .72rem; font-style: italic; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .color-key { width: 23px; height: 4px; border-radius: 4px; flex: none; }
     .panel-hint { color: #73737e; font-size: .73rem; line-height: 1.55; margin: 10px 0 0; }
     .ghost { border-radius: 10px; padding: 11px 13px; border: 1px solid var(--line); font-size: .82rem; font-weight: 600; background: transparent; color: #b8b8c2; }
@@ -169,7 +167,6 @@
     .p-group-titles { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
     .p-group-name { color: #f0f0f4; font: 600 1rem "Space Grotesk", sans-serif; }
     .p-group-sub { color: #7e7e89; font-size: .78rem; }
-    .p-group-word { color: #c3b6f5; font-size: .78rem; font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .p-group-thumbs { display: flex; gap: 6px; flex: none; }
     .p-group-thumb { width: 34px; height: 34px; border-radius: 9px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,.14); }
     .p-group-chevron { flex: none; color: #8b8b96; font-size: 1.1rem; line-height: 1; transition: transform .25s; }
@@ -257,17 +254,15 @@
       #map, #mapFallback svg { height: max(58vh, 400px) !important; max-height: 520px; }
       .map-card { border-radius: 14px; }
       .map-tag { display: none; }
-      .basemap-switch, .route-switch { top: 10px; bottom: auto; padding: 4px; border-radius: 10px; gap: 4px; }
+      .basemap-switch { top: 10px; bottom: auto; padding: 4px; border-radius: 10px; gap: 4px; }
       .basemap-switch { left: 10px; right: auto; }
-      .route-switch { right: 10px; left: auto; }
-      .basemap-switch button, .route-switch button { padding: 8px 10px; font-size: .7rem; min-height: 36px; }
+      .basemap-switch button { padding: 8px 10px; font-size: .7rem; min-height: 36px; }
       .recenter-btn { right: 10px; bottom: 12px; padding: 9px 12px; font-size: .72rem; min-height: 38px; }
       .map-legend { padding: 12px 15px; gap: 10px 16px; font-size: .74rem; }
       .legend-badge { width: 21px; height: 21px; font-size: .66rem; }
       .legend-photo { width: 18px; height: 18px; border-width: 2.5px; }
       .legend-line { width: 20px; }
-      .legend-tail { display: inline; }
-      .map-fallback-note { padding: 10px 15px; font-size: .74rem; }
+        .map-fallback-note { padding: 10px 15px; font-size: .74rem; }
       /* les boutons +/− de Leaflet passent en bas à gauche : en haut ils
          seraient recouverts par les deux sélecteurs */
       .leaflet-top.leaflet-left { top: auto; bottom: 12px; left: 10px; }
@@ -310,7 +305,7 @@
       .participant { padding: 11px 8px; }
       .avatar { width: 34px; height: 34px; font-size: .68rem; }
       .participant-name { font-size: .88rem; }
-      .participant-sub, .participant-word { font-size: .74rem; }
+      .participant-sub { font-size: .74rem; }
       .panel-hint { font-size: .72rem; }
       .ghost { min-height: 44px; }
 
@@ -325,7 +320,6 @@
       .p-group-head { padding: 13px 14px; gap: 11px; }
       .p-group-name { font-size: .92rem; }
       .p-group-sub { font-size: .72rem; }
-      .p-group-word { font-size: .72rem; }
       .p-group-thumbs { gap: 4px; }
       .p-group-thumb { width: 26px; height: 26px; border-radius: 7px; }
       .p-group-thumb:nth-child(3) { display: none; }
@@ -364,7 +358,7 @@
       .stat-number { font-size: 1.35rem; }
       .stat-label { font-size: .68rem; max-width: 112px; }
       .section-wrap { width: calc(100% - 22px); }
-      .basemap-switch button, .route-switch button { padding: 7px 8px; font-size: .66rem; }
+      .basemap-switch button { padding: 7px 8px; font-size: .66rem; }
       .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
       .p-group-thumbs { display: none; }
       .photo-card img { height: 158px; }
@@ -384,7 +378,7 @@
       .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
       .participant:hover { background: transparent; border-color: transparent; }
       .participant[aria-pressed="true"] { background: rgba(255,255,255,.05); border-color: var(--line); }
-      .basemap-switch button, .route-switch button { min-height: 36px; }
+      .basemap-switch button { min-height: 36px; }
     }
     @media (min-width: 761px) and (max-width: 1080px) { .features-grid { grid-template-columns: repeat(2,1fr); } }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
@@ -418,15 +412,14 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">Un même trajet,<br><span class="gradient-text">Metz, France</span></h1>
-      <p>Comment un même espace géographique peut-il être vécu et perçu différemment d’une personne à une autre&nbsp;?
-      De <strong>La République</strong> à la <strong>Cathédrale Saint-Étienne</strong>, les participants choisissent librement leur itinéraire
-      et photographient <strong>ce qui les fait s’arrêter et regarder autrement</strong> — une couleur, une ombre, une fissure, un objet abandonné, un détail qui rappelle un souvenir.
-      Leurs images géolocalisées composent peu à peu une mémoire collective du territoire traversé.</p>
+      <h1 id="hero-title">Metz,<br><span class="gradient-text">au détour des regards</span></h1>
+      <p>De <strong>la Place de la République</strong> à la <strong>Cathédrale Saint-Étienne</strong>, chacun choisit librement
+      son chemin et photographie <strong>ce qui le fait s’arrêter et regarder autrement</strong>. À travers ces parcours et ces
+      regards singuliers se dessine une cartographie sensible et collective de Metz.</p>
       <div class="stats" aria-label="Le projet en chiffres">
-        <div><div class="stat-number" id="statParticipants">0</div><div class="stat-label">Participants en chemin</div></div>
+        <div><div class="stat-number" id="statParticipants">0</div><div class="stat-label">Trajets enregistrés</div></div>
         <div><div class="stat-number" id="statPhotos">0</div><div class="stat-label">Photos géolocalisées</div></div>
-        <div><div class="stat-number" id="statDistance">—</div><div class="stat-label">De A à B à vol d’oiseau</div></div>
+        <div><div class="stat-number" id="statDistance">—</div><div class="stat-label">À vol d’oiseau</div></div>
       </div>
     </section>
 
@@ -435,8 +428,8 @@
         <span class="route-badge badge-a" aria-hidden="true">A</span>
         <div>
           <small>Point de départ commun</small>
-          <strong>La République</strong>
-          <span>60 Rue de la Chapelle, 57000 Metz<br>49.09920, 6.17332</span>
+          <strong>Place de la République</strong>
+          <span>5 Av. Robert Schuman, 57000 Metz<br>49.11501, 6.17262</span>
         </div>
       </div>
       <div class="route-arrow" aria-hidden="true">→<small>itinéraire libre</small></div>
@@ -454,26 +447,22 @@
       <div class="workspace">
         <div class="map-card">
           <div class="map-stage">
-            <div id="map" role="application" aria-label="Carte de Metz, France. Le point A est La République, 60 Rue de la Chapelle ; le point B est la Cathédrale Saint-Étienne, 2 Place de Chambre. Les vignettes rondes sont les photographies géolocalisées des participants."></div>
+            <div id="map" role="application" aria-label="Carte de Metz, France. Le point A est la Place de la République, 5 avenue Robert Schuman ; le point B est la Cathédrale Saint-Étienne, 2 place de Chambre. Les vignettes rondes sont les photographies géolocalisées des participants."></div>
             <div id="mapFallback" hidden></div>
             <div class="map-tag"><strong>Metz, France · A → B</strong> &nbsp;·&nbsp; Les chemins vécus du projet</div>
             <div class="basemap-switch" id="basemapSwitch" role="group" aria-label="Fond de carte">
               <button type="button" id="baseClean" aria-pressed="true">Carte épurée</button>
-              <button type="button" id="baseStreets" aria-pressed="false">Noms de rues</button>
-            </div>
-            <div class="basemap-switch route-switch" id="routeSwitch" role="group" aria-label="Tracé des chemins">
-              <button type="button" id="routeStreets" aria-pressed="true" title="Chaque portion du trajet suit le réseau piéton (rues, passages, escaliers)">Rues</button>
-              <button type="button" id="routeDirect" aria-pressed="false" title="Relier les photos par des segments droits, à vol d'oiseau">Direct</button>
+              <button type="button" id="baseStreets" aria-pressed="false">Carte détaillée</button>
             </div>
             <button class="recenter-btn" id="recenter" type="button">◎ Recentrer A → B</button>
           </div>
           <div class="map-fallback-note" id="fallbackNote" hidden>⚠️ La carte en ligne n’a pas pu se charger (aperçu sans connexion). Un fond schématique de Metz, France est affiché à la place : les points A et B et les photographies restent positionnés selon leurs vraies coordonnées. Ouvrez la page avec une connexion internet pour voir le plan réel de Metz, France.</div>
           <div class="map-filters" id="mapFilters" role="group" aria-label="Filtrer les trajets par participant"></div>
           <div class="map-legend">
-            <span class="legend-item"><span class="legend-badge badge-a">A</span> La République — départ</span>
+            <span class="legend-item"><span class="legend-badge badge-a">A</span> Place de la République — départ</span>
             <span class="legend-item"><span class="legend-badge badge-b">B</span> Cathédrale Saint-Étienne — arrivée</span>
             <span class="legend-item"><span class="legend-photo" aria-hidden="true"></span> Photographie géolocalisée</span>
-            <span class="legend-item"><span class="legend-line" aria-hidden="true"></span> <span>Chemin d’un participant<span class="legend-tail"> — itinéraire piéton le long des rues</span></span></span>
+            <span class="legend-item"><span class="legend-line" aria-hidden="true"></span> <span>Chemin d’un participant</span></span>
             <span class="legend-item route-status" id="routeStatus" hidden></span>
             <span class="legend-item clicked-coords" id="clickedCoords" hidden></span>
           </div>
@@ -481,7 +470,7 @@
 
         <aside class="sidebar" aria-label="Participants">
           <div class="panel">
-            <div class="panel-heading"><h2>Participants</h2><small id="participantCount" title="Participants en chemin">0</small></div>
+            <div class="panel-heading"><h2>Participants</h2><small id="participantCount" title="Trajets enregistrés">0</small></div>
             <div id="participants"></div>
             <button class="ghost clear-filter" id="clearFilter" type="button" hidden>Voir tous les trajets</button>
             <p class="panel-hint">Sélectionnez un participant pour mettre son chemin et ses photographies en évidence. Cliquez à nouveau pour tout réafficher.</p>
@@ -493,7 +482,7 @@
     <section class="gallery-section section-wrap" id="photographies">
       <div class="section-intro">
         <h2>Les regards du trajet</h2>
-        <p>«&nbsp;Photographier ce qui fait s’arrêter et regarder autrement.&nbsp;» Chaque participant rassemble ici les photographies de son trajet, géolocalisées entre La République et la Cathédrale Saint-Étienne. Ouvrez une carte pour les parcourir.</p>
+        <p>«&nbsp;Photographier ce qui fait s’arrêter et regarder autrement.&nbsp;» Chaque participant rassemble ici les photographies de son trajet, géolocalisées entre la Place de la République et la Cathédrale Saint-Étienne. Ouvrez une carte pour les parcourir.</p>
       </div>
       <div class="gallery-groups" id="gallery"></div>
       <span class="gallery-total" id="galleryTotal"></span>
@@ -509,7 +498,7 @@
         <p>Une cartographie sensible collective, centrée sur l’essentiel : les chemins réellement vécus et ce qui, en route, a retenu le regard.</p>
       </div>
       <div class="features-grid">
-        <article class="feature"><div class="feature-icon" style="background:#141a33">🎯</div><h3>Un départ, une arrivée</h3><p>Tous partent du point A — La République, 60 Rue de la Chapelle — et rejoignent le point B — la Cathédrale Saint-Étienne. Entre les deux, l’itinéraire est entièrement libre.</p></article>
+        <article class="feature"><div class="feature-icon" style="background:#141a33">🎯</div><h3>Un départ, une arrivée</h3><p>Tous partent du point A — la Place de la République, 5 avenue Robert Schuman — et rejoignent le point B — la Cathédrale Saint-Étienne. Entre les deux, l’itinéraire est entièrement libre.</p></article>
         <article class="feature"><div class="feature-icon" style="background:#191625">📷</div><h3>Photographier l’arrêt</h3><p>Une seule consigne : photographier ce qui fait <em>s’arrêter et regarder autrement</em>. Une couleur, une ombre, une fissure, une présence, un objet abandonné… Non les plus belles images, mais les détails ordinaires qui passent inaperçus.</p></article>
         <article class="feature"><div class="feature-icon" style="background:#0e2220">📍</div><h3>Chaque photo géolocalisée</h3><p>Chaque photographie est placée sur la carte de Metz, France à l’endroit où elle a été prise, grâce à ses coordonnées géolocalisées. Reliées dans l’ordre du trajet, elles dessinent le chemin vécu par chacun.</p></article>
         <article class="feature"><div class="feature-icon" style="background:#272015">🔀</div><h3>Des chemins qui se croisent</h3><p>Certains trajets se rejoignent, d’autres divergent ; un même lieu peut apparaître à travers plusieurs regards. La carte révèle comment chacun accorde une importance différente aux endroits traversés.</p></article>
@@ -521,7 +510,7 @@
 
   <footer>
     © <span id="year"></span> TrajetsSensibles — Cartographie sensible collective à Metz, France<br>
-    Atelier de Chaimae SEBTI · M1 Arts Plastiques · De La République (60 Rue de la Chapelle) à la Cathédrale Saint-Étienne (2 Pl. de Chambre)<br>
+    Atelier de Chaimae SEBTI · M1 Arts Plastiques · De la Place de la République (5 Av. Robert Schuman) à la Cathédrale Saint-Étienne (2 Pl. de Chambre)<br>
     Fonds de carte © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues)<br>
     Itinéraires piétons calculés sur le réseau © OpenStreetMap contributors (serveur OSRM)<br>
     Site web : <a class="credit-link" href="https://github.com/hypertrophic" target="_blank" rel="noopener noreferrer">hypertrophic</a>
@@ -541,7 +530,7 @@
   <script>
     "use strict";
     /* ================= Parcours fixe de l'atelier (Metz, France) ================= */
-    const POINT_A = { label: "A", name: "La République", address: "60 Rue de la Chapelle, 57000 Metz", lat: 49.0991984, lng: 6.1733178 };
+    const POINT_A = { label: "A", name: "Place de la République", address: "5 Av. Robert Schuman, 57000 Metz", lat: 49.1150115, lng: 6.1726196 };
     const POINT_B = { label: "B", name: "Cathédrale Saint-Étienne de Metz", address: "2 Pl. de Chambre, 57000 Metz", lat: 49.1202811, lng: 6.1757916 };
     const PALETTE = ["#a78bfa", "#34d399", "#67a4fa", "#f178aa", "#e8c547"];
 
@@ -550,11 +539,11 @@
        ce sont les emplacements à remplir dans donnees.js. */
     const DONNEES_PAR_DEFAUT = {
       participants: [
-        { nom: "Participant 1", couleur: "#a78bfa", motDuTrajet: "", photos: [] },
-        { nom: "Participant 2", couleur: "#34d399", motDuTrajet: "", photos: [] },
-        { nom: "Participant 3", couleur: "#67a4fa", motDuTrajet: "", photos: [] },
-        { nom: "Participant 4", couleur: "#f178aa", motDuTrajet: "", photos: [] },
-        { nom: "Participant 5", couleur: "#e8c547", motDuTrajet: "", photos: [] }
+        { nom: "Chaimae SEBTI", couleur: "#a78bfa", photos: [] },
+        { nom: "Driss JABRI", couleur: "#34d399", photos: [] },
+        { nom: "Participant 3", couleur: "#67a4fa", photos: [] },
+        { nom: "Participant 4", couleur: "#f178aa", photos: [] },
+        { nom: "Participant 5", couleur: "#e8c547", photos: [] }
       ]
     };
 
@@ -589,7 +578,6 @@
           id: id,
           name: (p && typeof (p.nom || p.name) === "string" && (p.nom || p.name).trim()) ? (p.nom || p.name).trim() : "Participant " + (i + 1),
           color: couleurValide ? (p.couleur || p.color) : PALETTE[i % PALETTE.length],
-          journeyWord: (p && typeof (p.motDuTrajet || p.journeyWord) === "string") ? (p.motDuTrajet || p.journeyWord).trim() : "",
           photos: photos
         };
       });
@@ -653,7 +641,6 @@
     };
     const ROUTAGE_CACHE_CLE = "trajetsSensibles.itineraires.v1";
     const tracesRues = {};   // id du participant -> [[lat, lng], …]
-    let modeTrace = "rues";  // "rues" (défaut) | "direct"
 
     function chargerCacheItineraires() {
       try {
@@ -777,10 +764,8 @@
     }
     function appliquerGeometrie(pl, person) {
       const dimmed = selectedParticipantId !== null && selectedParticipantId !== person.id;
-      const provisoire = modeTrace === "rues" && !tracesRues[person.id];
-      pl.setLatLngs(modeTrace === "direct"
-        ? pointsTrace(person)
-        : (tracesRues[person.id] || courbeLisse(pointsTrace(person))));
+      const provisoire = !tracesRues[person.id];
+      pl.setLatLngs(tracesRues[person.id] || courbeLisse(pointsTrace(person)));
       pl.setStyle({
         weight: dimmed ? 3 : 4.5,
         opacity: dimmed ? 0.12 : (provisoire ? 0.5 : 0.92),
@@ -791,7 +776,7 @@
        Désactivé sur la carte schématique hors ligne (pas de réseau, et le fond
        dessiné ne correspond pas au réseau réel). */
     function chargerTracesRues() {
-      if (fallbackMode || modeTrace !== "rues") return;
+      if (fallbackMode) return;
       const enChemin = state.participants.filter(function (p) { return p.photos.length; });
       if (!enChemin.length) return;
       signalerRoutage("Calcul des itinéraires piétons…");
@@ -802,7 +787,7 @@
           restants--;
           if (restants === 0) {
             sauverCacheItineraires();
-            if (reussis) signalerRoutage("Itinéraires piétons le long des rues · © OpenStreetMap");
+            if (reussis) signalerRoutage("Itinéraires calculés sur le réseau © OpenStreetMap contributors");
             else signalerRoutage("Serveur d’itinéraires injoignable : tracés indicatifs en pointillés", true);
           }
           const pl = leafletPolylines[person.id];
@@ -873,10 +858,8 @@
         if (person.photos.length) {
           /* Tracé : itinéraire piéton réel s'il est déjà connu, sinon courbe
              provisoire en pointillés (remplacée dès que le calcul aboutit). */
-          const provisoire = modeTrace === "rues" && !tracesRues[person.id];
-          const linePoints = modeTrace === "direct"
-            ? pointsTrace(person)
-            : (tracesRues[person.id] || courbeLisse(pointsTrace(person)));
+          const provisoire = !tracesRues[person.id];
+          const linePoints = tracesRues[person.id] || courbeLisse(pointsTrace(person));
           const ligne = L.polyline(linePoints, {
             color: person.color,
             weight: dimmed ? 3 : 4.5,
@@ -943,9 +926,8 @@
         const dimmed = selectedParticipantId !== null && selectedParticipantId !== person.id;
         if (person.photos.length) {
           /* Sur la carte schématique (hors ligne), le tracé est une courbe
-             indicative — ou des segments directs si l'on a choisi ce mode :
-             le fond dessiné ne suit pas le réseau réel. */
-          const trace = modeTrace === "direct" ? pointsTrace(person) : courbeLisse(pointsTrace(person));
+             indicative : le fond dessiné ne suit pas le réseau réel. */
+          const trace = courbeLisse(pointsTrace(person));
           const pts = trace
             .map(function (c) { return fbX(c[1]).toFixed(1) + "," + fbY(c[0]).toFixed(1); }).join(" ");
           html += '<polyline points="' + pts + '" fill="none" stroke="' + person.color + '" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity="' + (dimmed ? 0.12 : 0.92) + '"/>';
@@ -1025,12 +1007,6 @@
         sub.className = "participant-sub";
         sub.textContent = person.photos.length === 0 ? "Aucune photo pour l’instant" : person.photos.length + (person.photos.length === 1 ? " photographie géolocalisée" : " photographies géolocalisées");
         info.append(name, sub);
-        if (person.journeyWord) {
-          const word = document.createElement("span");
-          word.className = "participant-word";
-          word.textContent = "« " + person.journeyWord + " »";
-          info.append(word);
-        }
         const key = document.createElement("span");
         key.className = "color-key";
         key.style.background = person.color;
@@ -1126,15 +1102,8 @@
       sousTitre.className = "p-group-sub";
       sousTitre.textContent = person.photos.length === 0
         ? "Aucune photographie pour l’instant"
-        : person.photos.length + (person.photos.length === 1 ? " photographie" : " photographies") +
-          (person.journeyWord ? "" : "");
+        : person.photos.length + (person.photos.length === 1 ? " photographie" : " photographies");
       titres.append(nom, sousTitre);
-      if (person.journeyWord) {
-        const mot = document.createElement("span");
-        mot.className = "p-group-word";
-        mot.textContent = "« " + person.journeyWord + " »";
-        titres.append(mot);
-      }
 
       /* aperçu : les trois premières vignettes, pour deviner le contenu */
       const apercu = document.createElement("span");
@@ -1246,29 +1215,6 @@
       btnClean.addEventListener("click", function () { setBase(false); });
       btnStreets.addEventListener("click", function () { setBase(true); });
 
-      /* Tracé des chemins : le long des rues (par défaut) ou segments directs. */
-      const btnRouteRues = document.getElementById("routeStreets");
-      const btnRouteDirect = document.getElementById("routeDirect");
-      function setModeTrace(mode) {
-        if (modeTrace === mode) return;
-        modeTrace = mode;
-        btnRouteRues.setAttribute("aria-pressed", String(mode === "rues"));
-        btnRouteDirect.setAttribute("aria-pressed", String(mode === "direct"));
-        state.participants.forEach(function (person) {
-          const ligne = leafletPolylines[person.id];
-          if (ligne) appliquerGeometrie(ligne, person);
-        });
-        if (fallbackMode) {
-          renderFallbackLayers();
-          signalerRoutage(mode === "rues" ? "Carte hors ligne : tracés indicatifs (courbes) — itinéraires réels avec une connexion" : "Tracés directs A → photos → B, à vol d’oiseau");
-        } else if (mode === "rues") {
-          chargerTracesRues();
-        } else {
-          signalerRoutage("Tracés directs A → photos → B, à vol d’oiseau");
-        }
-      }
-      btnRouteRues.addEventListener("click", function () { setModeTrace("rues"); });
-      btnRouteDirect.addEventListener("click", function () { setModeTrace("direct"); });
       document.getElementById("recenter").addEventListener("click", function () {
         if (map) fitToRoute();
         else document.getElementById("carte").scrollIntoView({ behavior: "smooth" });
