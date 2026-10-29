@@ -18,10 +18,10 @@
    dans l'ordre du trajet et regroupées sous le nom de leur auteur.
 
    ┌──────────────────────────────────────────────────────────────────────┐
-   │  CONTENU ACTUEL : DONNÉES DE DÉMONSTRATION                           │
-   │  Les 18 images de assets/ sont des visuels neutres générés pour le    │
-   │  site (bandeau « IMAGE DE DÉMONSTRATION ») et les coordonnées sont    │
-   │  des positions d'exemple le long du parcours réel.                   │
+   │  CONTENU ACTUEL                                                     │
+   │  Chaimae SEBTI : visuels de démonstration (remplacement à venir).    │
+   │  Driss JABRI : 7 photographies réelles et leurs coordonnées.         │
+   │  Participants 3 à 5 : emplacements à compléter.                      │
    └──────────────────────────────────────────────────────────────────────┘
    ════════════════════════════════════════════════════════════════════════ */
 
@@ -47,10 +47,13 @@ window.DONNEES_ATELIER = {
       nom: "Driss JABRI",
       couleur: "#34d399",
       photos: [
-        { fichier: "assets/participant-2/flaque.jpg", lat: 49.115641, lng: 6.175517, date: "10 octobre 2026" },
-        { fichier: "assets/participant-2/linge.jpg", lat: 49.116812, lng: 6.176254, date: "10 octobre 2026" },
-        { fichier: "assets/participant-2/pigeons.jpg", lat: 49.117677, lng: 6.174277, date: "10 octobre 2026" },
-        { fichier: "assets/participant-2/seuil.jpg", lat: 49.118544, lng: 6.176264, date: "10 octobre 2026" }
+        { fichier: "assets/participant-2/01-emballage.jpg", lat: 49.115638, lng: 6.173514, date: "30 octobre 2026" },
+        { fichier: "assets/participant-2/02-antivol.jpg", lat: 49.116246, lng: 6.172909, date: "30 octobre 2026" },
+        { fichier: "assets/participant-2/03-tract.jpg", lat: 49.116245, lng: 6.173895, date: "30 octobre 2026" },
+        { fichier: "assets/participant-2/04-sachet.jpg", lat: 49.118708, lng: 6.175683, date: "30 octobre 2026" },
+        { fichier: "assets/participant-2/05-terrasse.jpg", lat: 49.118708, lng: 6.175683, date: "30 octobre 2026" },
+        { fichier: "assets/participant-2/06-cathedrale.jpg", lat: 49.119307, lng: 6.175724, date: "30 octobre 2026" },
+        { fichier: "assets/participant-2/07-reflet.jpg", lat: 49.119829, lng: 6.174834, date: "30 octobre 2026" }
       ]
     },
 

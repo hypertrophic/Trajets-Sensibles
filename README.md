@@ -155,9 +155,11 @@ Tout le contenu éditorial — les noms, l'ordre des photographies, leurs coordo
 dates — tient dans `donnees.js`, en clair. Le dossier `assets/` contient les images, rangées
 par participant : chaque participant rassemble les photographies de son propre trajet.
 
-Les photographies actuellement en ligne sont des **visuels de démonstration** portant un
-bandeau « IMAGE DE DÉMONSTRATION » : ils ne représentent aucune prise de vue réelle et ne
-montrent aucun lieu de la ville. Ils seront remplacés par les images de l'atelier.
+Les photographies de **Driss JABRI** — sept images prises entre la Place de la République et
+la cathédrale — sont les premières images réelles de l'atelier. Les autres emplacements sont
+encore occupés par des **visuels de démonstration** portant un bandeau « IMAGE DE
+DÉMONSTRATION » : ceux-là ne représentent aucune prise de vue réelle et ne montrent aucun lieu
+de la ville. Ils seront remplacés au fil des envois.
 
 ## Crédits
 
@@ -168,10 +170,11 @@ Atelier de cartographie sensible collective, Metz, France.
 - **Itinéraires piétons** : © OpenStreetMap contributors (serveur OSRM)
 - **Bibliothèque cartographique** : Leaflet (BSD-2-Clause)
 - **Polices** : Inter et Space Grotesk (SIL Open Font License)
-- **Photographies** : © leurs auteurs respectifs ; les images actuellement en ligne sont des
-  visuels de démonstration générés pour le site et ne représentent aucune prise de vue réelle.
-- **Participants de démonstration** : Chaimae SEBTI et Driss JABRI (noms réels, photographies
-  de démonstration) ; les emplacements 3 à 5 restent à compléter.
+- **Photographies** : © leurs auteurs respectifs. Les sept photographies de Driss JABRI ont
+  été prises pour l'atelier ; les autres images en ligne sont des visuels de démonstration
+  générés pour le site et ne représentent aucune prise de vue réelle.
+- **Participants** : Chaimae SEBTI (idée et conception du projet) et Driss JABRI (premier
+  parcours photographique) ; les emplacements 3 à 5 restent à compléter.
 
 ## Copyright
 
