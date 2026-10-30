@@ -21,7 +21,7 @@
    │  CONTENU ACTUEL                                                     │
    │  Chaimae SEBTI : 11 photographies réelles et leurs coordonnées.      │
    │  Driss JABRI : 7 photographies réelles et leurs coordonnées.         │
-   │  Participant 3 : 8 photographies réelles (nom à préciser).           │
+   │  Fayrouz : 8 photographies réelles.                                 │
    │  Participants 4 et 5 : emplacements à compléter.                     │
    └──────────────────────────────────────────────────────────────────────┘
    ════════════════════════════════════════════════════════════════════════ */
@@ -68,7 +68,7 @@ window.DONNEES_ATELIER = {
     /* ─────────────────────────── PARTICIPANT 3 ─────────────────────────
        Trajet d'exemple : le plus direct, le long de l'axe central. */
     {
-      nom: "Participant 3",
+      nom: "Fayrouz",
       couleur: "#67a4fa",
       photos: [
         { fichier: "assets/participant-3/01-coupole.jpg", lat: 49.1155271, lng: 6.1743422, date: "30 octobre 2026" },
