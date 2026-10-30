@@ -176,9 +176,14 @@ Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
 - **Photographies** : © leurs auteurs respectifs. Les dix-huit photographies de Chaimae SEBTI
   et de Driss JABRI ont été prises pour l'atelier ; les autres images en ligne sont des
   visuels de démonstration générés pour le site et ne représentent aucune prise de vue réelle.
-- **Participants** : Chaimae SEBTI (idée et conception du projet) et Driss JABRI
-  ([@jabri.experimental](https://www.instagram.com/jabri.experimental)) ; les emplacements
-  3 à 5 restent à compléter.
+- **Participants** : les parcours et les photographies sont ceux des personnes qui ont
+  marché et regardé. Elles et ils sont crédités ici ; sur le site, seul le nom de l'autrice
+  du projet figure en pied de page.
+  - **Chaimae SEBTI** — idée et conception du projet, parcours photographique en onze images ·
+    Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
+  - **Driss JABRI** — participant, parcours photographique en sept images ·
+    Instagram : [@jabri.experimental](https://www.instagram.com/jabri.experimental)
+  - Emplacements 3 à 5 : à compléter au fil des envois.
 
 ## Copyright
 
