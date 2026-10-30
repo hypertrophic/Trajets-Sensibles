@@ -21,7 +21,8 @@
    │  CONTENU ACTUEL                                                     │
    │  Chaimae SEBTI : 11 photographies réelles et leurs coordonnées.      │
    │  Driss JABRI : 7 photographies réelles et leurs coordonnées.         │
-   │  Participants 3 à 5 : emplacements à compléter.                      │
+   │  Participant 3 : 8 photographies réelles (nom à préciser).           │
+   │  Participants 4 et 5 : emplacements à compléter.                     │
    └──────────────────────────────────────────────────────────────────────┘
    ════════════════════════════════════════════════════════════════════════ */
 
@@ -70,9 +71,14 @@ window.DONNEES_ATELIER = {
       nom: "Participant 3",
       couleur: "#67a4fa",
       photos: [
-        { fichier: "assets/participant-3/neon.jpg", lat: 49.116311, lng: 6.172585, date: "10 octobre 2026" },
-        { fichier: "assets/participant-3/escalier.jpg", lat: 49.117545, lng: 6.172992, date: "10 octobre 2026" },
-        { fichier: "assets/participant-3/silence.jpg", lat: 49.118953, lng: 6.174591, date: "10 octobre 2026" }
+        { fichier: "assets/participant-3/01-coupole.jpg", lat: 49.1155271, lng: 6.1743422, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/02-guirlandes.jpg", lat: 49.1155271, lng: 6.1743422, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/03-facades.jpg", lat: 49.1177576, lng: 6.1757921, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/04-horloge.jpg", lat: 49.1178993, lng: 6.1757728, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/05-churros.jpg", lat: 49.1178993, lng: 6.1757728, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/06-lumiere-au-sol.jpg", lat: 49.1182388, lng: 6.1765814, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/07-cathedrale-statue.jpg", lat: 49.1203081, lng: 6.1757974, date: "30 octobre 2026" },
+        { fichier: "assets/participant-3/08-gargouille.jpg", lat: 49.1203081, lng: 6.1757974, date: "30 octobre 2026" }
       ]
     },
 

@@ -156,12 +156,13 @@ Tout le contenu éditorial — les noms, l'ordre des photographies, leurs coordo
 dates — tient dans `donnees.js`, en clair. Le dossier `assets/` contient les images, rangées
 par participant : chaque participant rassemble les photographies de son propre trajet.
 
-Les parcours de **Chaimae SEBTI** — onze images — et de **Driss JABRI** — sept images — sont
-désormais composés de photographies réelles, prises rue par rue entre la Place de la
-République et la cathédrale. Les trois autres emplacements sont encore occupés par des
-**visuels de démonstration** portant un bandeau « IMAGE DE DÉMONSTRATION » : ceux-là ne
-représentent aucune prise de vue réelle et ne montrent aucun lieu de la ville. Ils seront
-remplacés au fil des envois.
+Les parcours de **Chaimae SEBTI** — onze images — de **Driss JABRI** — sept images — et du
+**participant 3** — huit images — sont désormais composés de photographies réelles, prises
+rue par rue entre la Place de la République et la cathédrale ; celles du participant 3 ont
+été prises de nuit. Les deux derniers emplacements sont encore occupés par des **visuels de
+démonstration** portant un bandeau « IMAGE DE DÉMONSTRATION » : ceux-là ne représentent
+aucune prise de vue réelle et ne montrent aucun lieu de la ville. Ils seront remplacés au fil
+des envois.
 
 ## Crédits
 
@@ -173,9 +174,10 @@ Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
 - **Itinéraires piétons** : © OpenStreetMap contributors (serveur OSRM)
 - **Bibliothèque cartographique** : Leaflet (BSD-2-Clause)
 - **Polices** : Inter et Space Grotesk (SIL Open Font License)
-- **Photographies** : © leurs auteurs respectifs. Les dix-huit photographies de Chaimae SEBTI
-  et de Driss JABRI ont été prises pour l'atelier ; les autres images en ligne sont des
-  visuels de démonstration générés pour le site et ne représentent aucune prise de vue réelle.
+- **Photographies** : © leurs auteurs respectifs. Les vingt-six photographies de Chaimae
+  SEBTI, de Driss JABRI et du participant 3 ont été prises pour l'atelier ; les autres images
+  en ligne sont des visuels de démonstration générés pour le site et ne représentent aucune
+  prise de vue réelle.
 - **Participants** : les parcours et les photographies sont ceux des personnes qui ont
   marché et regardé. Elles et ils sont crédités ici ; sur le site, seul le nom de l'autrice
   du projet figure en pied de page.
@@ -183,7 +185,9 @@ Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
     Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
   - **Driss JABRI** — participant, parcours photographique en sept images ·
     Instagram : [@jabri.experimental](https://www.instagram.com/jabri.experimental)
-  - Emplacements 3 à 5 : à compléter au fil des envois.
+  - **Participant 3** — parcours photographique nocturne en huit images ; nom et compte
+    Instagram à préciser sur demande de la personne concernée.
+  - Emplacements 4 et 5 : à compléter au fil des envois.
 
 ## Copyright
 
