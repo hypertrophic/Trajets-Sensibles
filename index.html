@@ -171,6 +171,7 @@
     .p-group-titles { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
     .p-group-name { color: #f0f0f4; font: 600 1rem "Space Grotesk", sans-serif; }
     .p-group-sub { color: #7e7e89; font-size: .78rem; }
+    .p-group-quote { color: #b9b9c6; font-size: .84rem; font-style: italic; line-height: 1.45; }
     .p-group-thumbs { display: flex; gap: 6px; flex: none; }
     .p-group-thumb { width: 34px; height: 34px; border-radius: 9px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,.14); }
     .p-group-chevron { flex: none; color: #8b8b96; font-size: 1.1rem; line-height: 1; transition: transform .25s; }
@@ -324,6 +325,7 @@
       .p-group-head { padding: 13px 14px; gap: 11px; }
       .p-group-name { font-size: .92rem; }
       .p-group-sub { font-size: .72rem; }
+      .p-group-quote { font-size: .8rem; }
       .p-group-thumbs { gap: 4px; }
       .p-group-thumb { width: 26px; height: 26px; border-radius: 7px; }
       .p-group-thumb:nth-child(3) { display: none; }
@@ -553,6 +555,15 @@
     };
 
     /* ================= Lecture et préparation des données ================= */
+    /* Le mot d'arrivée est facultatif : la valeur "[blank]" réserve la place
+       sans rien afficher, elle n'apparaît donc jamais sur le site. */
+    function motArivee(p) {
+      if (!p || typeof p !== "object") return "";
+      const brut = p.mot || p.commentaire || p.comment || p.word || "";
+      if (typeof brut !== "string") return "";
+      const mot = brut.trim();
+      return /^\[?\s*blank\s*\]?$/i.test(mot) ? "" : mot;
+    }
     function preparerDonnees(brutes) {
       const source = (brutes && Array.isArray(brutes.participants) && brutes.participants.length)
         ? brutes.participants
@@ -583,6 +594,8 @@
           id: id,
           name: (p && typeof (p.nom || p.name) === "string" && (p.nom || p.name).trim()) ? (p.nom || p.name).trim() : "Participant " + (i + 1),
           color: couleurValide ? (p.couleur || p.color) : PALETTE[i % PALETTE.length],
+          /* le mot dit en arrivant au point B ; "[blank]" = parole non recueillie */
+          comment: motArivee(p),
           photos: photos
         };
       });
@@ -1108,7 +1121,14 @@
       sousTitre.textContent = person.photos.length === 0
         ? "Aucune photographie pour l’instant"
         : person.photos.length + (person.photos.length === 1 ? " photographie" : " photographies");
-      titres.append(nom, sousTitre);
+      titres.append(nom);
+      if (person.comment) {
+        const motDit = document.createElement("span");
+        motDit.className = "p-group-quote";
+        motDit.textContent = "\u00ab " + person.comment + " \u00bb";
+        titres.append(motDit);
+      }
+      titres.append(sousTitre);
 
       /* aperçu : les trois premières vignettes, pour deviner le contenu */
       const apercu = document.createElement("span");

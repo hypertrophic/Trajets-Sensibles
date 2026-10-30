@@ -76,10 +76,13 @@ arrêts différents : c'est là que se révèlent les regards singuliers.
    présence, un sentiment de malaise, un objet abandonné, un détail qui rappelle un souvenir.
 4. **À l'arrivée**, partager **un mot, un souvenir ou une impression** de l'ensemble du trajet.
 
-Le site ne publie **aucun commentaire** : les photographies n'ont ni titre, ni description, ni
-légende. Elles sont simplement numérotées dans l'ordre du trajet (« Photographie 1 »,
-« Photographie 2 »…) et regroupées sous le nom de leur auteur, avec leurs coordonnées et leur
-date. Ce sont les images et les chemins qui parlent.
+Le site ne publie **aucun commentaire sur les images** : les photographies n'ont ni titre, ni
+description, ni légende. Elles sont simplement numérotées dans l'ordre du trajet
+(« Photographie 1 », « Photographie 2 »…) et regroupées sous le nom de leur auteur, avec leurs
+coordonnées et leur date. Le seul texte qui accompagne un parcours est le **mot dit par la
+personne en arrivant au point B**, repris tel quel entre guillemets dans l'en-tête de son
+groupe — « Une balade méditative » pour Chaimae SEBTI, « colère, désorganisation et abondant »
+pour Driss JABRI. Ce sont les images et les chemins qui parlent.
 
 ## Comment lire la carte
 

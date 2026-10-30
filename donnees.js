@@ -6,6 +6,8 @@
 
      nom       nom (ou pseudonyme) affiché sur la carte et dans la galerie
      couleur   couleur de son trajet
+     mot       ce que la personne a dit en arrivant au point B (facultatif ;
+               écrire "[blank]" tant que la parole n'a pas été recueillie)
      photos    liste ordonnée des photographies du parcours
 
    Pour chaque photographie :
@@ -34,6 +36,7 @@ window.DONNEES_ATELIER = {
     {
       nom: "Chaimae SEBTI",
       couleur: "#a78bfa",
+      mot: "Une balade méditative",
       photos: [
         { fichier: "assets/participant-1/01-manege.jpg", lat: 49.1153793, lng: 6.1731715, date: "30 octobre 2026" },
         { fichier: "assets/participant-1/02-lumiere.jpg", lat: 49.1163635, lng: 6.1747122, date: "30 octobre 2026" },
@@ -54,6 +57,7 @@ window.DONNEES_ATELIER = {
     {
       nom: "Driss JABRI",
       couleur: "#34d399",
+      mot: "colère, désorganisation et abondant",
       photos: [
         { fichier: "assets/participant-2/01-emballage.jpg", lat: 49.115638, lng: 6.173514, date: "30 octobre 2026" },
         { fichier: "assets/participant-2/02-antivol.jpg", lat: 49.116246, lng: 6.172909, date: "30 octobre 2026" },
@@ -70,6 +74,7 @@ window.DONNEES_ATELIER = {
     {
       nom: "Fayrouz",
       couleur: "#67a4fa",
+      mot: "[blank]",
       photos: [
         { fichier: "assets/participant-3/01-coupole.jpg", lat: 49.1155271, lng: 6.1743422, date: "30 octobre 2026" },
         { fichier: "assets/participant-3/02-guirlandes.jpg", lat: 49.1155271, lng: 6.1743422, date: "30 octobre 2026" },
@@ -87,6 +92,7 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 4",
       couleur: "#f178aa",
+      mot: "[blank]",
       photos: [
         { fichier: "assets/participant-4/banc.jpg", lat: 49.115488, lng: 6.169282, date: "10 octobre 2026" },
         { fichier: "assets/participant-4/rideau.jpg", lat: 49.116525, lng: 6.168478, date: "10 octobre 2026" },
@@ -100,6 +106,7 @@ window.DONNEES_ATELIER = {
     {
       nom: "Participant 5",
       couleur: "#e8c547",
+      mot: "[blank]",
       photos: [
         { fichier: "assets/participant-5/hasard.jpg", lat: 49.116224, lng: 6.177800, date: "10 octobre 2026" },
         { fichier: "assets/participant-5/enseigne.jpg", lat: 49.117383, lng: 6.178334, date: "10 octobre 2026" },
