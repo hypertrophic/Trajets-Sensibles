@@ -148,6 +148,7 @@ Trajets-Sensibles/
 ├── donnees.js      ← les participants, leurs parcours et leurs photographies
 ├── README.md       ← ce document
 └── assets/
+    ├── favicon.svg                       ← l'icône de l'onglet, reprise du logo
     └── participant-1/ … participant-5/   ← les photographies de chaque participant
 ```
 
