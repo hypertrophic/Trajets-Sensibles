@@ -168,7 +168,8 @@ des envois.
 
 **Idée et conception du projet : Chaimae SEBTI** — M1 Arts Plastiques.
 Atelier de cartographie sensible collective, Metz, France.
-Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
+Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii) ·
+Contact : [chaimaesebti6@gmail.com](mailto:chaimaesebti6@gmail.com)
 
 - **Fonds de carte** : © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues)
 - **Itinéraires piétons** : © OpenStreetMap contributors (serveur OSRM)
