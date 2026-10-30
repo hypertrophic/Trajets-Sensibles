@@ -167,6 +167,7 @@ remplacés au fil des envois.
 
 **Idée et conception du projet : Chaimae SEBTI** — M1 Arts Plastiques.
 Atelier de cartographie sensible collective, Metz, France.
+Instagram : [@chaimae_sebtii](https://www.instagram.com/chaimae_sebtii)
 
 - **Fonds de carte** : © Esri (vue épurée) · © IGN — Géoplateforme (plan avec noms de rues)
 - **Itinéraires piétons** : © OpenStreetMap contributors (serveur OSRM)
@@ -175,8 +176,9 @@ Atelier de cartographie sensible collective, Metz, France.
 - **Photographies** : © leurs auteurs respectifs. Les dix-huit photographies de Chaimae SEBTI
   et de Driss JABRI ont été prises pour l'atelier ; les autres images en ligne sont des
   visuels de démonstration générés pour le site et ne représentent aucune prise de vue réelle.
-- **Participants** : Chaimae SEBTI (idée et conception du projet) et Driss JABRI ; les
-  emplacements 3 à 5 restent à compléter.
+- **Participants** : Chaimae SEBTI (idée et conception du projet) et Driss JABRI
+  ([@jabri.experimental](https://www.instagram.com/jabri.experimental)) ; les emplacements
+  3 à 5 restent à compléter.
 
 ## Copyright
 
