@@ -19,7 +19,7 @@
 
    ┌──────────────────────────────────────────────────────────────────────┐
    │  CONTENU ACTUEL                                                     │
-   │  Chaimae SEBTI : visuels de démonstration (remplacement à venir).    │
+   │  Chaimae SEBTI : 11 photographies réelles et leurs coordonnées.      │
    │  Driss JABRI : 7 photographies réelles et leurs coordonnées.         │
    │  Participants 3 à 5 : emplacements à compléter.                      │
    └──────────────────────────────────────────────────────────────────────┘
@@ -34,10 +34,17 @@ window.DONNEES_ATELIER = {
       nom: "Chaimae SEBTI",
       couleur: "#a78bfa",
       photos: [
-        { fichier: "assets/participant-1/fissure.jpg", lat: 49.115734, lng: 6.171697, date: "10 octobre 2026" },
-        { fichier: "assets/participant-1/vitrine.jpg", lat: 49.116472, lng: 6.170747, date: "10 octobre 2026" },
-        { fichier: "assets/participant-1/ombre.jpg", lat: 49.117110, lng: 6.173482, date: "10 octobre 2026" },
-        { fichier: "assets/participant-1/grille.jpg", lat: 49.118506, lng: 6.175055, date: "10 octobre 2026" }
+        { fichier: "assets/participant-1/01-manege.jpg", lat: 49.1153793, lng: 6.1731715, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/02-lumiere.jpg", lat: 49.1163635, lng: 6.1747122, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/03-fleurs.jpg", lat: 49.1174583, lng: 6.1757832, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/04-grille-herbes.jpg", lat: 49.1182442, lng: 6.1764841, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/05-vitrine.jpg", lat: 49.118557, lng: 6.1769061, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/06-fleche-doree.jpg", lat: 49.1190376, lng: 6.1765504, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/07-marquage.jpg", lat: 49.1187477, lng: 6.1755767, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/08-enseigne.jpg", lat: 49.1187057, lng: 6.1744647, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/09-fleurs-papier.jpg", lat: 49.1200676, lng: 6.1738219, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/10-plaque.jpg", lat: 49.1196098, lng: 6.1751261, date: "30 octobre 2026" },
+        { fichier: "assets/participant-1/11-boite-aux-lettres.jpg", lat: 49.1194077, lng: 6.1756573, date: "30 octobre 2026" }
       ]
     },
 
